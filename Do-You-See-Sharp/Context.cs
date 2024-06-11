@@ -15,7 +15,6 @@ public class Context
 		_questions = new List<Question>();
 		_people = new List<People>();
 		_currentQuestionIndex = 0;
-        
 
     }
 
@@ -58,7 +57,6 @@ public class Context
 
     public string GetStory()
 	{
-
 		return _storyText; 
 	}
 	public Question GetCurrentQuestion()

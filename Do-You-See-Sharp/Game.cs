@@ -3,7 +3,6 @@ using System.Xml.Linq;
 
 public class Game
 {
-
 	private Context _context;
 	private List<string> _acquiredHints = new List<string>();
 	private int _currentPoint = 100;
@@ -16,13 +15,17 @@ public class Game
 	}
 
 	private enum GameState
-	{	
+	{
 		INITIAL_STATE,
 		FINAL_STATE,
 		FINISH
 	}
 
 	private GameState _gameState;	
+	
+	/// <summary>
+	/// Constructor of the Game Class
+	/// </summary>
 	public Game()
 	{
 		_context = new Context ("Olay, tarihi ve sanatsal eserlerle ünlü bir müzede geçmektedir." +
@@ -30,8 +33,6 @@ public class Game
 			"Güvenlik kameraları, olay günü altı farklı şüphelinin tablonun bulunduğu galeriden geçtiğini kaydetmiştir. " +
 			"Müze kapalıyken gerçekleşen bu olay, galerinin içindeki güvenlik sisteminin de devre dışı bırakıldığı bir zaman diliminde olmuştur. " +
 			"Olayın ardından müze çalışanları birbirlerini suçlayarak ifadeler vermişlerdir ve bazı ifadelerde çelişkiler bulunmaktadır.\n");
-
-
 
 		_context.AddNewPeople(new People("Emre Aslan",
 			"35 yaşında, kısa siyah saçlı ve gözlüklü bir adam", 
@@ -64,7 +65,6 @@ public class Game
 			"Müzede sergilenen eserler hakkında derin bilgilere sahip ve bu eserlerin değerlerini iyi biliyor. Müzede sergilenmeyen ancak depolarda saklanan eski sanat eserleri hakkında bilgi sahibi olduğu, bu eserlere kimseye söylemeden erişim sağladığına dair dedikodular var."));
 
 
-
 		_context.AddNewQuestion(new Question("Eseri baskalari da varken calmak cok riskli, herkes ciktiktan sonra calinmis olmali. Olayın gerçekleştiği gün galeriden çıkan son kişi kim olabilir?",
 			"Leyla Demir"));
 
@@ -85,11 +85,21 @@ public class Game
 
     }
 
-
-
+	/// <summary>
+	/// With this function player can use 2 types of powerups "HALF" or "SKIP".
+	/// With "HALF" option, half of the suspects will be eliminated indicating that they are not the correct answer.
+	/// With the "SKIP" option, player can skip the question and answer of it will be added to hints of the player in case to use this information later.
+	/// </summary>
+	/// <param name="powerUp"></param> this is an PowerUp enum type, user should choose one of those.
 	public void UsePowerUp(PowerUps powerUp)
 	{
-		switch (powerUp)
+        if (_gameState == GameState.FINISH)
+        {
+            Console.WriteLine("Oyun bitti.");
+            return;
+        }
+
+        switch (powerUp)
 		{
 			case PowerUps.SKIP:
 				_useSkipPowerUp();
@@ -103,6 +113,10 @@ public class Game
 
 	}
 
+	/// <summary>
+	/// This function shuffles the people list so that half option will create a fair half choice set.
+	/// </summary>
+	/// <returns></returns> a list of people, which their inital locations are shuffled.
 	private List<People> _shufflePeople()
 	{
         Random _random = new Random();
@@ -124,6 +138,11 @@ public class Game
 
         return shuffledPeople;
     }
+
+	/// <summary>
+	/// this function allows to use half power up option. Also checks if there are enough points to use it,
+	/// if the player is in the last question or not.
+	/// </summary>
 	private void _useHalfPowerUp()
 	{
 		if (_gameState != GameState.FINAL_STATE) {
@@ -153,10 +172,12 @@ public class Game
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("You don't have enough points to use Half Option PowerUp!");
             Console.ResetColor();
-
         }
-
     }
+
+	/// <summary>
+	/// This is a private function to use SKIP power up as it is intended. It skips the question and adds it (question : answer ) pair to the hint list.
+	/// </summary>
     private void _useSkipPowerUp()
     {
 		if (_gameState != GameState.INITIAL_STATE) {
@@ -179,6 +200,11 @@ public class Game
 
     }
 
+	/// <summary>
+	/// this function checks if the player has enough points to pay the cost.
+	/// </summary>
+	/// <param name="cost"></param> 
+	/// <returns></returns> true if points are enough to pay the cost else false
 	private bool _payIfPossible(int cost)
 	{
 
@@ -192,14 +218,21 @@ public class Game
 
 	}
 
-    // soru dogru ıse questıon + answer
-    // power up kullandıysa aynı sey
+
+	/// <summary>
+	/// This is a private function to add hints acquired to the hint list.
+	/// </summary>
+	/// <param name="hint"></param>
     private void _addHint(string hint)
     {
 		_acquiredHints.Add(hint);
 
     }
 
+
+	/// <summary>
+	/// This function shows the all hints acquired in a game.
+	/// </summary>
     public void ShowMyHints()
 	{
         Console.WriteLine("My all hints:");
@@ -209,6 +242,10 @@ public class Game
         }
     }
 
+
+	/// <summary>
+	/// This function displays current point of the player.
+	/// </summary>
 	public void DisplayPoint()
 	{
 		if (_gameState == GameState.FINISH) {
@@ -228,6 +265,10 @@ public class Game
             Console.ResetColor();
         }
     }
+
+	/// <summary>
+	/// This private function enables us to go to the next question available 
+	/// </summary>
 	private void _proceedToNextQuestion()
 	{
 		var result = _context.MoveToNextQuestionIfAvailable();
@@ -235,12 +276,15 @@ public class Game
 		{
 			_gameState = GameState.FINAL_STATE;
 		}
-
 	}
 
+
+	/// <summary>
+	/// This is a function which player can give answer to the current question. Name checks are not case sensitive.
+	/// </summary>
+	/// <param name="name"></param> name of the suspect as string
 	public void Answer(string name)
 	{
-
 		var check = _checkInput(name);
 		if (!check)
 		{
@@ -291,12 +335,15 @@ public class Game
 
 		}
 
-
 	}
 
+	/// <summary>
+	/// This is a private helper function to chech case sensitivity.
+	/// </summary>
+	/// <param name="input"></param>
+	/// <returns></returns>
 	private bool _checkInput(string input)
 	{
-
 		foreach ( var p in _context.GetPeople()) {
 			if (p.GetName().ToLower() == input.ToLower())
 			{
@@ -305,13 +352,21 @@ public class Game
 
 		} 
 		return false;
-	
-	
 	}
 	
 
+	/// <summary>
+	/// This is a function to display the current question in the game. If the game has not finished yet, it will print the current question. 
+	/// Else it will indicate that game is over.
+	/// </summary>
 	public void ShowCurrentQuestion()
 	{
+		if (_gameState == GameState.FINISH)
+		{
+			Console.WriteLine("Oyun bitti.");
+			return;
+		}
+
 		Question currentQuestion = _context.GetCurrentQuestion();
 		if (currentQuestion != null)
 		{
@@ -323,6 +378,9 @@ public class Game
 		}
 	}
 
+	/// <summary>
+	/// This function prints the names of the all suspects in a context.
+	/// </summary>
 	public void ShowNamesOfAllSuspects()
 	{
         var suspects = _context.GetAllPeople();
@@ -333,9 +391,13 @@ public class Game
 
     }
 
+
+    /// <summary>
+    /// This function prints the name, information and claims of the specified suspect in a context.
+    /// </summary>
+    /// <param name="name"></param>
     public void ShowDetailsOfSuspect(string name)
     {
-
         var suspects = _context.GetAllPeople();
         var suspect = suspects.FirstOrDefault(s => s.GetName() == name);
 
@@ -349,10 +411,14 @@ public class Game
         {
             Console.WriteLine($"Suspect with name '{name}' not found.");
         }
-
     }
 
-	public void ShowAllDetailsOfSuspects()
+
+    /// <summary>
+    /// This function prints the name, information and claims of the all suspects in a context.
+    /// </summary>
+    /// <param name="name"></param>
+    public void ShowAllDetailsOfSuspects()
 	{
         var suspects = _context.GetAllPeople();
 
@@ -368,6 +434,11 @@ public class Game
         }
     }
 
+
+	/// <summary>
+    /// This function returns the extra hint attribute information of a suspect with given name.
+	/// </summary>
+	/// <param name="name"></param>
 	public void RequestHintAboutSuspect(string name)
 	{
 		if (!_payIfPossible(20))
@@ -385,11 +456,17 @@ public class Game
 		}
     }
 
+	/// <summary>
+	/// This function prints the help options of the game.
+	/// </summary>
     public void Help()
     {
 
     }
 
+	/// <summary>
+	/// This function prints the main story of the context.
+	/// </summary>
 	public void DisplayStory()
 	{
 		Console.Write(" ");
@@ -400,6 +477,4 @@ public class Game
         }
 
 	}
-
-
 }
