@@ -80,4 +80,12 @@ public class Context
 		return false;
 
 	}
+
+	public List<People> GetPeople()
+	{
+
+		return _people;
+	}
+
+
 }

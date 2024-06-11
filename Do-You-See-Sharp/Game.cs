@@ -7,6 +7,7 @@ public class Game
 	private Context _context;
 	private List<string> _acquiredHints = new List<string>();
 	private int _currentPoint = 100;
+	private string _culpritName;
 	public enum PowerUps
 	{
 		SKIP,
@@ -14,13 +15,13 @@ public class Game
 	}
 
 	private enum GameState
-	{
-		NOT_STARTED,
+	{	
 		INITIAL_STATE,
 		FINAL_STATE,
 		FINISH
 	}
 
+	private GameState _gameState;	
 	public Game()
 	{
 		_context = new Context ("Olay, tarihi ve sanatsal eserlerle ünlü bir müzede geçmektedir." +
@@ -74,6 +75,8 @@ public class Game
 
         _context.AddNewQuestion(new Question("Müzede sergilenen eserler hakkında derin bilgilere sahip olan bir kişinin, değerli bir tablonun kaybolmasında bir çıkarı olabilir. Bu profili hangi şüpheli karşılar?", 
 			"Seda Çınar"));
+
+		_culpritName = "Leyla Demir";
 
     }
 
@@ -141,11 +144,30 @@ public class Game
     }
     private void _useSkipPowerUp()
     {
+		if (_payIfPossible(40))
+		{
+			var q = _context.GetCurrentQuestion();
+			_addHint( q.GetQuestionText() +" : " +q.GetAnswerText());
+			_proceedToNextQuestion();
+
+		}
+		else {
+			System.Console.WriteLine("Soru gecme jokeri kullanacak kadar puanin yok!");
+			DisplayPoint();
+		
+		}
 
     }
 
 	private bool _payIfPossible(int cost)
 	{
+
+		if(_currentPoint > cost)
+		{
+			_currentPoint -= cost;
+			return true;
+		}
+
 		return false;
 
 	}
@@ -154,6 +176,7 @@ public class Game
     // power up kullandıysa aynı sey
     private void _addHint(string hint)
     {
+		_acquiredHints.Add(hint);
 
     }
 
@@ -168,6 +191,10 @@ public class Game
 
 	public void DisplayPoint()
 	{
+		if (_gameState == GameState.FINISH) {
+            System.Console.WriteLine("Oyun bitti ama cok istiyorsan : ");
+        }
+
 		System.Console.Write("Your Point: ");
 		if (_currentPoint < 50)
 		{
@@ -183,13 +210,85 @@ public class Game
     }
 	private void _proceedToNextQuestion()
 	{
+		var result = _context.MoveToNextQuestionIfAvailable();
+		if (!result)
+		{
+			_gameState = GameState.FINAL_STATE;
+		}
 
 	}
 
 	public void Answer(string name)
 	{
 
+		var check = _checkInput(name);
+		if (!check)
+		{
+			System.Console.WriteLine("Hatali isim! Bir daha dene.");
+
+			return;
+		}
+
+        switch (_gameState)
+		{
+			case GameState.INITIAL_STATE:
+                if (_context.TryToAnswerToCurrentQuestion(name))
+                {
+                    var q = _context.GetCurrentQuestion();
+                    System.Console.WriteLine("Dogru cevap!");
+                    _addHint(q.GetQuestionText() + " : " + q.GetAnswerText());
+                    _proceedToNextQuestion();
+                }
+                else
+                {
+                    System.Console.WriteLine("Yanlis cevap!");
+                    _proceedToNextQuestion();
+
+                }
+                break;
+			case GameState.FINAL_STATE:
+
+                var result = _culpritName.ToLower() == name.ToLower();
+
+				if (result)
+				{
+					System.Console.WriteLine("Tebrikler sucluyu buldun!");
+					_gameState = GameState.FINISH;
+
+				}
+				else
+				{
+					System.Console.WriteLine("Yanlis cevap! Sucluyu bulamadin!");
+					System.Console.WriteLine("Suclunun ismi " + _culpritName + " idi!");
+                    _gameState = GameState.FINISH;
+                }
+
+
+				break ;
+			case GameState.FINISH:
+				System.Console.WriteLine("Oyun bitti eve git.");
+				break ;
+
+		}
+
+
 	}
+
+	private bool _checkInput(string input)
+	{
+
+		foreach ( var p in _context.GetPeople()) {
+			if (p.GetName().ToLower() == input.ToLower())
+			{
+				return true;
+			}
+
+		} 
+		return false;
+	
+	
+	}
+	
 
 	public void ShowCurrentQuestion()
 	{
