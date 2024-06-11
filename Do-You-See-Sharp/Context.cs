@@ -25,25 +25,23 @@ public class Context
 		_people.Add(people);
 	}
 
-    public Dictionary<string, string> GetAllInitialClaimsOfPeople()
+    public List<People> GetAllPeople()
     {
-        Dictionary<string, string> initialClaims = new Dictionary<string, string>();
-        foreach (var person in _people)
-        {
-            initialClaims.Add(person.GetName(), person.GetInitialClaim());
-        }
-        return initialClaims;
+        return _people;
     }
+	public string GetHintFromSuspect(string name)
+	{
+		var suspect = _people.FirstOrDefault(p => p.GetName() == name);
+		if (suspect != null && suspect.IsHintAcquired())
+		{
+			return suspect.GetExtraHint();
+		}
+		else
+		{
+			return "No hint available for this suspect.";
 
-    public Dictionary<string, string> GetAllInfoOfPeople()
-    {
-        Dictionary<string, string> initialClaims = new Dictionary<string, string>();
-        foreach (var person in _people)
-        {
-            initialClaims.Add(person.GetName(), person.GetInfo());
-        }
-        return initialClaims;
-    }
+		}
+	}
 
     public string GetStory()
 	{

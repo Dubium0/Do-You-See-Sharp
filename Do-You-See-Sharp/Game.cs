@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Xml.Linq;
 
 public class Game
 {
@@ -90,18 +91,53 @@ public class Game
 
 	}
 
+	private List<People> _shufflePeople()
+	{
+        Random _random = new Random();
+        string correctAnswer = _context.GetCurrentQuestion().GetAnswerText();
+        List<People> shuffledPeople = _context.GetAllPeople();
+
+        var halfSize = shuffledPeople.Count / 2;
+
+        // Shuffle the list randomly
+        shuffledPeople = shuffledPeople.OrderBy(x => _random.Next()).ToList();
+
+        People correctPerson = shuffledPeople.Find(p => p.GetName() == correctAnswer);
+
+        if (shuffledPeople.IndexOf(correctPerson) >= halfSize)
+        {
+            shuffledPeople.Remove(correctPerson);
+            shuffledPeople.Insert(0, correctPerson);
+        }
+
+        return shuffledPeople;
+    }
 	private void _useHalfPowerUp()
 	{
 		bool hasEnoughMoney = _payIfPossible(80);
 		if (hasEnoughMoney)
 		{
-			_context.GetCurrentQuestion().GetAnswerText
-		}
+            
+            List<People> shuffledPeople = _shufflePeople();
+            List<string> names = shuffledPeople.Take(shuffledPeople.Count / 2).Select(p => p.GetName()).ToList();
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Half Option PowerUp is used.\nRemaining Options are : \n");
+            Console.ResetColor();
+
+            foreach (var name in names)
+            {
+                Console.WriteLine(name);
+            }
+        }
 		else
 		{
-            System.Console.WriteLine("You don't have enough points to use Half Option PowerUp!");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("You don't have enough points to use Half Option PowerUp!");
+            Console.ResetColor();
+
         }
-		
+
     }
     private void _useSkipPowerUp()
     {
@@ -123,13 +159,28 @@ public class Game
 
     public void ShowMyHints()
 	{
-
-	}
+        Console.WriteLine("My all hints:");
+        foreach (var acquiredHint in _acquiredHints)
+        {
+            Console.WriteLine("-" + acquiredHint);
+        }
+    }
 
 	public void DisplayPoint()
 	{
-		System.Console.WriteLine("Your Point: " + _currentPoint);
-	}
+		System.Console.Write("Your Point: ");
+		if (_currentPoint < 50)
+		{
+			Console.ForegroundColor = ConsoleColor.Red;
+			Console.WriteLine(_currentPoint);
+            Console.ResetColor();
+        }
+		else {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine(_currentPoint);
+            Console.ResetColor();
+        }
+    }
 	private void _proceedToNextQuestion()
 	{
 
@@ -142,13 +193,69 @@ public class Game
 
 	public void ShowCurrentQuestion()
 	{
-		
+		Question currentQuestion = _context.GetCurrentQuestion();
+		if (currentQuestion != null)
+		{
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("Question: \n");
+			Console.ResetColor();
+			
+			Console.WriteLine(currentQuestion.GetQuestionText());
+		}
 	}
 
-	public void ShowSuspects()
+	public void ShowNamesOfAllSuspects()
 	{
-        // list döndürüyor -> _context.GetAllPeople()
-        // nameleri alt alta printleyelim
+        var suspects = _context.GetAllPeople();
+        foreach (var suspect in suspects)
+        {
+            Console.WriteLine(suspect.GetName());
+        }
+
+    }
+
+    public void ShowDetailsOfSuspect(string name)
+    {
+
+        var suspects = _context.GetAllPeople();
+        var suspect = suspects.FirstOrDefault(s => s.GetName() == name);
+
+        if (suspect != null)
+        {
+            Console.WriteLine($"Name: {suspect.GetName()}");
+            Console.WriteLine($"Info: {suspect.GetInfo()}");
+            Console.WriteLine($"Claim: {suspect.GetInitialClaim()}");
+        }
+        else
+        {
+            Console.WriteLine($"Suspect with name '{name}' not found.");
+        }
+
+    }
+
+	public void ShowAllDetailsOfSuspects()
+	{
+        var suspects = _context.GetAllPeople();
+
+        foreach (var person in suspects)
+        {
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.WriteLine($"Name: {person.GetName()}");
+			Console.ResetColor();
+
+            Console.WriteLine($"Initial Claim: {person.GetInitialClaim()}");
+            Console.WriteLine($"Info: {person.GetInfo()}");
+            Console.WriteLine(new string('-', 30)); // Separator
+        }
+    }
+
+	public void GetHintFromSuspect(string name)
+	{
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine("Hint about " + name + ":");
+        Console.ResetColor();
+
+        Console.WriteLine(_context.GetHintFromSuspect(name));
     }
 
     public void Help()
