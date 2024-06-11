@@ -8,6 +8,7 @@ public class Game
 	private List<string> _acquiredHints = new List<string>();
 	private int _currentPoint = 100;
 	private string _culpritName;
+	private string _lastQuestionTxt = "Who is the culprit?";
 	public enum PowerUps
 	{
 		SKIP,
@@ -78,6 +79,10 @@ public class Game
 
 		_culpritName = "Leyla Demir";
 
+		_context.SetLastQuestion(new Question(_lastQuestionTxt, _culpritName));
+
+		DisplayStory();
+
     }
 
 
@@ -86,9 +91,13 @@ public class Game
 	{
 		switch (powerUp)
 		{
-			case PowerUps.SKIP: break;
+			case PowerUps.SKIP:
+				_useSkipPowerUp();
+				break;
 
-			case PowerUps.HALF: break;
+			case PowerUps.HALF: 
+				_useHalfPowerUp();
+				break;
 
 		}
 
@@ -117,6 +126,12 @@ public class Game
     }
 	private void _useHalfPowerUp()
 	{
+		if (_gameState != GameState.FINAL_STATE) {
+			Console.WriteLine("Bu guclendırme yalnızca son soruda kullanılabılır!");
+			return;
+		
+		}
+
 		bool hasEnoughMoney = _payIfPossible(80);
 		if (hasEnoughMoney)
 		{
@@ -144,6 +159,11 @@ public class Game
     }
     private void _useSkipPowerUp()
     {
+		if (_gameState != GameState.INITIAL_STATE) {
+			Console.WriteLine("Bu guclendırme yalnızca ılk dort soru ıcın kullanılabılır.");
+			return ;
+		}
+
 		if (_payIfPossible(40))
 		{
 			var q = _context.GetCurrentQuestion();
@@ -369,6 +389,17 @@ public class Game
     {
 
     }
+
+	public void DisplayStory()
+	{
+		Console.Write(" ");
+
+        foreach (var p in _context.GetStory().Split('.'))
+		{
+            Console.WriteLine(p + ".");
+        }
+
+	}
 
 
 }

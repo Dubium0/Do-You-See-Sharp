@@ -7,20 +7,33 @@ public class Context
 	private int _currentQuestionIndex;
 	private List<People> _people;
 
+	private Question _lastQuestion;
+
 	public Context(string storyText)
 	{
 		_storyText = storyText;
 		_questions = new List<Question>();
 		_people = new List<People>();
 		_currentQuestionIndex = 0;
-	}
+        
+
+    }
 
 	public void AddNewQuestion(Question question)
 	{
 		_questions.Add(question);
 	}
+	public void SetLastQuestion(Question lastQuestion) 
+	{
+        _lastQuestion = lastQuestion;
+    }
 
-	public void AddNewPeople(People people)
+    public Question GetLastQuestion()
+    {
+        return _lastQuestion;
+    }
+
+    public void AddNewPeople(People people)
 	{
 		_people.Add(people);
 	}
@@ -48,7 +61,7 @@ public class Context
 
 		return _storyText; 
 	}
-	public Question? GetCurrentQuestion()
+	public Question GetCurrentQuestion()
 	{
 		if (_questions.Count > 0)
 		{
@@ -57,7 +70,7 @@ public class Context
 		}
 		else
 		{
-			return null;
+			return _lastQuestion;
 		}
 	}
     public bool TryToAnswerToCurrentQuestion(string answer)
@@ -65,8 +78,6 @@ public class Context
         // remove case sensitivity
         return answer.ToLower() == _questions[_currentQuestionIndex].GetAnswerText().ToLower();
     }
-
-	//Get answer of the current question
 
     public bool MoveToNextQuestionIfAvailable()
 	{
@@ -86,6 +97,5 @@ public class Context
 
 		return _people;
 	}
-
 
 }
