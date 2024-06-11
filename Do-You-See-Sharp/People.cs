@@ -2,19 +2,28 @@
 
 public class People
 {
+    private string _name;
     private string _info;
     private string _initialClaim;
     private string _extraHint;
     private bool _isHintAcquired;
 
-    public People(string info, string initialClaim, string extraHint)
+    public People(string name, string info, string initialClaim, string extraHint)
     {
+        _name = name;
         _info = info;
         _initialClaim = initialClaim;
         _extraHint = extraHint;
         _isHintAcquired = false;
     }
-
+    public void SetName(string value)
+    {
+        _name = value;
+    }
+    public string GetName()
+    {
+        return _name;
+    }
     public string GetInfo()
     {
         return _info;

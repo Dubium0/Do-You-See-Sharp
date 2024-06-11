@@ -25,30 +25,52 @@ public class Context
 		_people.Add(people);
 	}
 
-	public string GetStory()
+    public Dictionary<string, string> GetAllInitialClaimsOfPeople()
+    {
+        Dictionary<string, string> initialClaims = new Dictionary<string, string>();
+        foreach (var person in _people)
+        {
+            initialClaims.Add(person.GetName(), person.GetInitialClaim());
+        }
+        return initialClaims;
+    }
+
+    public Dictionary<string, string> GetAllInfoOfPeople()
+    {
+        Dictionary<string, string> initialClaims = new Dictionary<string, string>();
+        foreach (var person in _people)
+        {
+            initialClaims.Add(person.GetName(), person.GetInfo());
+        }
+        return initialClaims;
+    }
+
+    public string GetStory()
 	{
 
 		return _storyText; 
 	}
-	public string GetCurrentQuestion()
+	public Question? GetCurrentQuestion()
 	{
 		if (_questions.Count > 0)
 		{
-			return _questions[_currentQuestionIndex].GetQuestionText();
+			return _questions[_currentQuestionIndex];
 
 		}
 		else
 		{
-			return "THERE IS NO QUESTION";
+			return null;
 		}
 	}
-	public bool TryToAnswerToCurrentQuestion(string answer)
-	{
+    public bool TryToAnswerToCurrentQuestion(string answer)
+    {
+        // remove case sensitivity
+        return answer.ToLower() == _questions[_currentQuestionIndex].GetAnswerText().ToLower();
+    }
 
-		return answer == _questions[_currentQuestionIndex].GetAnswerText();
+	//Get answer of the current question
 
-	}
-	public bool MoveToNextQuestionIfAvailable()
+    public bool MoveToNextQuestionIfAvailable()
 	{
 		
 		if (_questions.Count - 1 > _currentQuestionIndex)
