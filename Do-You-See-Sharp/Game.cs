@@ -348,13 +348,21 @@ public class Game
         }
     }
 
-	public void GetHintFromSuspect(string name)
+	public void RequestHintAboutSuspect(string name)
 	{
-        Console.ForegroundColor = ConsoleColor.Green;
-        Console.WriteLine("Hint about " + name + ":");
-        Console.ResetColor();
+		if (!_payIfPossible(20))
+		{
+            Console.WriteLine("You don't have enough points to get hint!");
+            return;
+		}
+		else
+		{
+			Console.ForegroundColor = ConsoleColor.Green;
+			Console.WriteLine("Hint about " + name + ":");
+			Console.ResetColor();
 
-        Console.WriteLine(_context.GetHintFromSuspect(name));
+			Console.WriteLine(_context.GetHintFromSuspect(name));
+		}
     }
 
     public void Help()
