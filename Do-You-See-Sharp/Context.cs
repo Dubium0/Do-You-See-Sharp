@@ -63,7 +63,7 @@ public class Context
 	}
 	public Question GetCurrentQuestion()
 	{
-		if (_questions.Count > 0)
+		if (_questions.Count - 1 > _currentQuestionIndex)
 		{
 			return _questions[_currentQuestionIndex];
 
