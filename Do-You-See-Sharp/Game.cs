@@ -92,8 +92,17 @@ public class Game
 
 	private void _useHalfPowerUp()
 	{
-
-	}
+		bool hasEnoughMoney = _payIfPossible(80);
+		if (hasEnoughMoney)
+		{
+			_context.GetCurrentQuestion().GetAnswerText
+		}
+		else
+		{
+            System.Console.WriteLine("You don't have enough points to use Half Option PowerUp!");
+        }
+		
+    }
     private void _useSkipPowerUp()
     {
 
@@ -105,22 +114,47 @@ public class Game
 
 	}
 
-	public void ShowMyHints()
-	{
+    // soru dogru ıse questıon + answer
+    // power up kullandıysa aynı sey
+    private void _addHint(string hint)
+    {
 
-	}
+    }
 
-	// soru dogru ıse questıon + answer
-	// power up kullandıysa aynı sey
-	private void _addHint(string hint)
+    public void ShowMyHints()
 	{
 
 	}
 
 	public void DisplayPoint()
 	{
+		System.Console.WriteLine("Your Point: " + _currentPoint);
+	}
+	private void _proceedToNextQuestion()
+	{
 
 	}
+
+	public void Answer(string name)
+	{
+
+	}
+
+	public void ShowCurrentQuestion()
+	{
+		
+	}
+
+	public void ShowSuspects()
+	{
+        // list döndürüyor -> _context.GetAllPeople()
+        // nameleri alt alta printleyelim
+    }
+
+    public void Help()
+    {
+
+    }
 
 
 }
