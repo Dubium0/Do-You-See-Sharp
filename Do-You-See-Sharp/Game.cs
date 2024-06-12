@@ -81,7 +81,7 @@ public class Game
 
 		_context.SetLastQuestion(new Question(_lastQuestionTxt, _culpritName));
 
-		DisplayStory();
+		Help();
 
     }
 
@@ -461,10 +461,18 @@ public class Game
 	/// </summary>
     public void Help()
     {
-
+        Console.WriteLine("Welcome to our game: Do You See Sharp!");
+        Console.WriteLine("Oyunun oynayışı hakkında bilgi almak için HowToPlay fonskiyonunu çağırın.");
+        Console.WriteLine("Oyunu başlatmak için StartGame fonksiyonunu çağırın.");
+        Console.WriteLine("Oyundan çıkmak için Quit fonksiyonunu çağırın.");
     }
 
-	public void HowToPlay()
+    public void Quit()
+    {
+        Environment.Exit(0);
+    }
+
+    public void HowToPlay()
 	{
         Console.WriteLine("Welcome to our game: Do You See Sharp!");
         Console.WriteLine("Bu oyun hikaye tabanlı bir dedektiflik oyunudur. Oyun başladığında, olay hakkında bilgi içeren kısa bir paragrafı okuyacaksınız.");
