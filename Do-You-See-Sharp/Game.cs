@@ -441,8 +441,8 @@ public class Game
             Console.WriteLine($"Isim: {person.GetName()}");
 			Console.ResetColor();
 
-            Console.WriteLine($"Baslangic Iddiasi: {person.GetInitialClaim()}");
             Console.WriteLine($"Kisiel Bilgiler: {person.GetInfo()}");
+            Console.WriteLine($"Baslangic Iddiasi: {person.GetInitialClaim()}");
             Console.WriteLine(new string('-', 30)); // Separator
         }
     }
