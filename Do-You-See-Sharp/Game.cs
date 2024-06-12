@@ -85,7 +85,7 @@ public class Game
 
 		_context.SetLastQuestion(new Question(_lastQuestionTxt, _culpritName));
 
-		Help();
+        Help();
 
     }
 
@@ -507,7 +507,7 @@ public class Game
     {
         Console.WriteLine("Do You See Sharp Oyununa Hosgeldin!");
         Console.WriteLine("Oyunun oynayışı hakkında bilgi almak için HowToPlay fonskiyonunu çağırın.");
-        Console.WriteLine("Oyunu başlatmak için StartGame fonksiyonunu çağırın.");
+        Console.WriteLine("Oyunun hikayesini görmek için DisplayStory fonskiyonunu çağırın.");
         Console.WriteLine("Oyundan çıkmak için Quit fonksiyonunu çağırın.");
         Console.WriteLine("Oyunu oynamak için gerekli tüm fonskiyonları görmek için 'GameObject.' kullanın.");
     }
@@ -518,16 +518,16 @@ public class Game
     /// </summary>
     public void HowToPlay()
 	{
-        Console.WriteLine("Do You See Sharp! Oyununa Hosgeldin!");
+        Console.WriteLine("Do You See Sharp Oyununa Hosgeldin!");
         Console.WriteLine("Bu oyun hikaye tabanlı bir dedektiflik oyunudur. Oyun başladığında, olay hakkında bilgi içeren kısa bir paragrafı okuyacaksınız.");
-        Console.WriteLine("Olayın şüphelileri hakkında bilgileri ve iddialarını öğrenmek için sağlanan fonksiyonları kullanabilirsiniz.");
-        Console.WriteLine("Oyunun ilk aşamasında 4 adet yönlendirici soru alacaksınız. Bazı soruların benzer profilleri olabilir, dikkatli olun!");
-        Console.WriteLine("Bir soruyu yanlış cevaplarsanız 15 puan kaybedeceksiniz ve doğru cevabı göremeyeceksiniz, ancak neyin yanlış olduğunu aklınızda tutmak isteyebilirsiniz ;).");
-        Console.WriteLine("Doğru cevaplarsanız puanınız sabit kalacak ve soru-cevap ikilisi, oyun boyunca elde ettiğiniz ip envanterine eklenecektir.");
+        Console.WriteLine("Olayın şüphelileri hakkında bilgileri ve iddialarını öğrenmek için sağlanan fonksiyonları kullanın.");
+        Console.WriteLine("İlk aşamada 4 adet yönlendirici soru alacaksınız.");
+        Console.WriteLine("Bir soruyu yanlış cevaplarsanız 15 puan kaybedeceksiniz ve doğru cevabı göremeyeceksiniz.");
+        Console.WriteLine("Doğru cevaplarsanız soru-cevap ikilisi, oyunda elde ettiğiniz hint envanterine eklenecektir.");
         Console.WriteLine("İlk 4 soruyu doğru cevaplarsanız, şüpheli listesi giderek daralacak ve final sorusunda suçluyu doğru tahmin etme ihtimaliniz artacak şekilde tasarlandı.");
-        Console.WriteLine("Ayrıca oyunda çeşitli güçlendirme seçenekleri bulunmaktadır. İlk 4 soru için, 40 puan karşılığında soruyu atlayabilirsiniz. Bu seçeneği kullandığınızda, soru-cevap ikilisi ip envanterine eklenecektir.");
-        Console.WriteLine("Final aşamasına geldiğinizde, elinizde 80 puan varsa, 'half' güçlendirme seçeneğini kullanarak yanlış cevapların yarısını elemek için puanınızı kullanabilirsiniz.");
-        Console.WriteLine("20 puan karşılığında, belirli bir şüpheliden ekstra ip talep etme imkanınız vardır.");
+        Console.WriteLine("Ayrıca oyunda çeşitli güçlendirme seçenekleri bulunmaktadır. İlk 4 soru için, 40 puan karşılığında soruyu atlayabilirsiniz. Bu seçeneği kullandığınızda, soru-cevap ikilisi hint envanterine eklenecektir.");
+        Console.WriteLine("Final aşamasında 80 puan karşılığı, 'half' seçeneğini kullanarak yanlış cevapların yarısını eleyebilirsiniz.");
+        Console.WriteLine("20 puan karşılığında, bir şüpheliden ekstra hint alabilirsiniz.");
         Console.WriteLine("Detaylara dikkat etmeyi unutmayın! İyi eğlenceler.");
 
     }
