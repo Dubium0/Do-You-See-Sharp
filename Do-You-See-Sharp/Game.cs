@@ -8,7 +8,11 @@ public class Game
 	private int _currentPoint = 100;
 	private string _culpritName;
 	private string _lastQuestionTxt = "Who is the culprit?";
-	public enum PowerUps
+
+
+	private bool _powerUpCheck = false;
+
+    public enum PowerUps
 	{
 		SKIP,
 		HALF
@@ -185,11 +189,20 @@ public class Game
 			return ;
 		}
 
+		if (_powerUpCheck)
+		{
+            Console.WriteLine("Bu guclendırme yalnızca bir kez kullanilabilir.");
+            return;
+
+        }
 		if (_payIfPossible(40))
 		{
-			var q = _context.GetCurrentQuestion();
+            Console.WriteLine("Soru gecme guclendirmesi kullanildi!");
+            var q = _context.GetCurrentQuestion();
 			_addHint( q.GetQuestionText() +" : " +q.GetAnswerText());
 			_proceedToNextQuestion();
+			_powerUpCheck = true;
+         
 
 		}
 		else {
