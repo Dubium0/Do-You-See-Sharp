@@ -8,8 +8,6 @@ public class Game
 	private int _currentPoint = 100;
 	private string _culpritName;
 	private string _lastQuestionTxt = "Who is the culprit?";
-
-	private bool _powerUpCheck  = false;
 	public enum PowerUps
 	{
 		SKIP,
@@ -186,22 +184,14 @@ public class Game
 			Console.WriteLine("Bu guclendırme yalnızca ılk dort soru ıcın kullanılabılır.");
 			return ;
 		}
-		if (_powerUpCheck)
-		{
-            Console.WriteLine("Bu guclendırme yalnızca 1 kez kullanilabilir.");
-            return;
-
-        }
 
 		if (_payIfPossible(40))
 		{
 			var q = _context.GetCurrentQuestion();
 			_addHint( q.GetQuestionText() +" : " +q.GetAnswerText());
 			_proceedToNextQuestion();
-			_powerUpCheck = true;
-            Console.WriteLine("Soru gecme guclendirmesi kullanildi!");
 
-        }
+		}
 		else {
 			System.Console.WriteLine("Soru gecme jokeri kullanacak kadar puanin yok!");
 			DisplayPoint();
@@ -221,13 +211,10 @@ public class Game
 		if(_currentPoint > cost)
 		{
 			_currentPoint -= cost;
-
-
-			
 			return true;
 		}
-        Console.WriteLine("Yeterli puanin yok! Mevcut Puan : " + _currentPoint.ToString());
-        return false;
+
+		return false;
 
 	}
 
@@ -239,7 +226,7 @@ public class Game
     private void _addHint(string hint)
     {
 		_acquiredHints.Add(hint);
-		Console.WriteLine("Yeni ipucu eklendi!");
+
     }
 
 
@@ -289,7 +276,6 @@ public class Game
 		{
 			_gameState = GameState.FINAL_STATE;
 		}
-		
 	}
 
 
@@ -320,7 +306,6 @@ public class Game
                 else
                 {
                     System.Console.WriteLine("Yanlis cevap!");
-					_payIfPossible(20);
                     _proceedToNextQuestion();
 
                 }
@@ -413,7 +398,6 @@ public class Game
     /// <param name="name"></param>
     public void ShowDetailsOfSuspect(string name)
     {
-     
         var suspects = _context.GetAllPeople();
         var suspect = suspects.FirstOrDefault(s => s.GetName() == name);
 
@@ -450,20 +434,6 @@ public class Game
         }
     }
 
-	public void GetHintFromSuspect(string name)
-	{
-		var res = _checkInput(name);
-		if (!res)
-		{
-			Console.WriteLine("Supheli listesinde boyle biri yok!");
-			return;
-		}
-
-		Console.ForegroundColor = ConsoleColor.Green;
-		Console.WriteLine("Hint about " + name + ":");
-		Console.ResetColor();
-
-	}
 
 	/// <summary>
     /// This function returns the extra hint attribute information of a suspect with given name.
@@ -494,10 +464,26 @@ public class Game
 
     }
 
-	/// <summary>
-	/// This function prints the main story of the context.
-	/// </summary>
-	public void DisplayStory()
+	public void HowToPlay()
+	{
+        Console.WriteLine("Welcome to our game: Do You See Sharp!");
+        Console.WriteLine("Bu oyun hikaye tabanlı bir dedektiflik oyunudur. Oyun başladığında, olay hakkında bilgi içeren kısa bir paragrafı okuyacaksınız.");
+        Console.WriteLine("Olayın şüphelileri hakkında bilgileri ve iddialarını öğrenmek için sağlanan fonksiyonları kullanabilirsiniz.");
+        Console.WriteLine("Oyunun ilk aşamasında 4 adet yönlendirici soru alacaksınız. Bazı soruların benzer profilleri olabilir, dikkatli olun!");
+        Console.WriteLine("Bir soruyu yanlış cevaplarsanız 15 puan kaybedeceksiniz ve doğru cevabı göremeyeceksiniz, ancak neyin yanlış olduğunu aklınızda tutmak isteyebilirsiniz ;).");
+        Console.WriteLine("Doğru cevaplarsanız puanınız sabit kalacak ve soru-cevap ikilisi, oyun boyunca elde ettiğiniz ip envanterine eklenecektir.");
+        Console.WriteLine("İlk 4 soruyu doğru cevaplarsanız, şüpheli listesi giderek daralacak ve final sorusunda suçluyu doğru tahmin etme ihtimaliniz artacak şekilde tasarlandı.");
+        Console.WriteLine("Ayrıca oyunda çeşitli güçlendirme seçenekleri bulunmaktadır. İlk 4 soru için, 40 puan karşılığında soruyu atlayabilirsiniz. Bu seçeneği kullandığınızda, soru-cevap ikilisi ip envanterine eklenecektir.");
+        Console.WriteLine("Final aşamasına geldiğinizde, elinizde 80 puan varsa, 'half' güçlendirme seçeneğini kullanarak yanlış cevapların yarısını elemek için puanınızı kullanabilirsiniz.");
+        Console.WriteLine("20 puan karşılığında, belirli bir şüpheliden ekstra ip talep etme imkanınız vardır.");
+        Console.WriteLine("Detaylara dikkat etmeyi unutmayın! İyi eğlenceler.");
+
+    }
+
+    /// <summary>
+    /// This function prints the main story of the context.
+    /// </summary>
+    public void DisplayStory()
 	{
 		Console.Write(" ");
 
