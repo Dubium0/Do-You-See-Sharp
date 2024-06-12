@@ -163,7 +163,7 @@ public class Game
             List<string> names = shuffledPeople.Take(shuffledPeople.Count / 2).Select(p => p.GetName()).ToList();
 
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("Half Option PowerUp is used.\nRemaining Options are : \n");
+            Console.WriteLine("Yari yariya guclendirmesi kullanildi!.\nGeriye kalan supheliler : \n");
             Console.ResetColor();
 
             foreach (var name in names)
@@ -174,7 +174,7 @@ public class Game
 		else
 		{
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("You don't have enough points to use Half Option PowerUp!");
+            Console.WriteLine("Yari yariya guclendirmesi kullanacak puaninn yok!");
             Console.ResetColor();
         }
     }
@@ -248,7 +248,7 @@ public class Game
 	/// </summary>
     public void ShowMyHints()
 	{
-        Console.WriteLine("My all hints:");
+        Console.WriteLine("Ip uclarim :");
         foreach (var acquiredHint in _acquiredHints)
         {
             Console.WriteLine("-" + acquiredHint);
@@ -265,7 +265,7 @@ public class Game
             System.Console.WriteLine("Oyun bitti ama cok istiyorsan : ");
         }
 
-		System.Console.Write("Your Point: ");
+		System.Console.Write("Toplam Puanin : ");
 		if (_currentPoint < 50)
 		{
 			Console.ForegroundColor = ConsoleColor.Red;
@@ -384,7 +384,7 @@ public class Game
 		if (currentQuestion != null)
 		{
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("Question: \n");
+            Console.WriteLine("Soru : \n");
 			Console.ResetColor();
 			
 			Console.WriteLine(currentQuestion.GetQuestionText());
@@ -416,13 +416,13 @@ public class Game
 
         if (suspect != null)
         {
-            Console.WriteLine($"Name: {suspect.GetName()}");
-            Console.WriteLine($"Info: {suspect.GetInfo()}");
-            Console.WriteLine($"Claim: {suspect.GetInitialClaim()}");
+            Console.WriteLine($"Isim: {suspect.GetName()}");
+            Console.WriteLine($"Kisisel Bilgiler: {suspect.GetInfo()}");
+            Console.WriteLine($"Iddia : {suspect.GetInitialClaim()}");
         }
         else
         {
-            Console.WriteLine($"Suspect with name '{name}' not found.");
+            Console.WriteLine($"'{name}' isimli supheli bulunamadi.");
         }
     }
 
@@ -438,11 +438,11 @@ public class Game
         foreach (var person in suspects)
         {
             Console.ForegroundColor = ConsoleColor.Magenta;
-            Console.WriteLine($"Name: {person.GetName()}");
+            Console.WriteLine($"Isim: {person.GetName()}");
 			Console.ResetColor();
 
-            Console.WriteLine($"Initial Claim: {person.GetInitialClaim()}");
-            Console.WriteLine($"Info: {person.GetInfo()}");
+            Console.WriteLine($"Baslangic Iddiasi: {person.GetInitialClaim()}");
+            Console.WriteLine($"Kisiel Bilgiler: {person.GetInfo()}");
             Console.WriteLine(new string('-', 30)); // Separator
         }
     }
@@ -456,13 +456,13 @@ public class Game
 	{
 		if (!_payIfPossible(20))
 		{
-            Console.WriteLine("You don't have enough points to get hint!");
+            Console.WriteLine("Ip ucu alacak kadar puanin yok!");
             return;
 		}
 		else
 		{
 			Console.ForegroundColor = ConsoleColor.Green;
-			Console.WriteLine("Hint about " + name + ":");
+			Console.WriteLine(name + " hakkinda ipucu " + ":");
 			Console.ResetColor();
 
 			Console.WriteLine(_context.GetHintFromSuspect(name));
@@ -474,7 +474,7 @@ public class Game
 	/// </summary>
     public void Help()
     {
-        Console.WriteLine("Welcome to our game: Do You See Sharp!");
+        Console.WriteLine("Do You See Sharp! Oyununa Hosgeldin!");
         Console.WriteLine("Oyunun oynayışı hakkında bilgi almak için HowToPlay fonskiyonunu çağırın.");
         Console.WriteLine("Oyunu başlatmak için StartGame fonksiyonunu çağırın.");
         Console.WriteLine("Oyundan çıkmak için Quit fonksiyonunu çağırın.");
@@ -487,7 +487,7 @@ public class Game
 
     public void HowToPlay()
 	{
-        Console.WriteLine("Welcome to our game: Do You See Sharp!");
+        Console.WriteLine("Do You See Sharp! Oyununa Hosgeldin!");
         Console.WriteLine("Bu oyun hikaye tabanlı bir dedektiflik oyunudur. Oyun başladığında, olay hakkında bilgi içeren kısa bir paragrafı okuyacaksınız.");
         Console.WriteLine("Olayın şüphelileri hakkında bilgileri ve iddialarını öğrenmek için sağlanan fonksiyonları kullanabilirsiniz.");
         Console.WriteLine("Oyunun ilk aşamasında 4 adet yönlendirici soru alacaksınız. Bazı soruların benzer profilleri olabilir, dikkatli olun!");
