@@ -8,6 +8,8 @@ public class Game
 	private int _currentPoint = 100;
 	private string _culpritName;
 	private string _lastQuestionTxt = "Who is the culprit?";
+
+	private bool _powerUpCheck  = false;
 	public enum PowerUps
 	{
 		SKIP,
@@ -184,14 +186,22 @@ public class Game
 			Console.WriteLine("Bu guclendırme yalnızca ılk dort soru ıcın kullanılabılır.");
 			return ;
 		}
+		if (_powerUpCheck)
+		{
+            Console.WriteLine("Bu guclendırme yalnızca 1 kez kullanilabilir.");
+            return;
+
+        }
 
 		if (_payIfPossible(40))
 		{
 			var q = _context.GetCurrentQuestion();
 			_addHint( q.GetQuestionText() +" : " +q.GetAnswerText());
 			_proceedToNextQuestion();
+			_powerUpCheck = true;
+            Console.WriteLine("Soru gecme guclendirmesi kullanildi!");
 
-		}
+        }
 		else {
 			System.Console.WriteLine("Soru gecme jokeri kullanacak kadar puanin yok!");
 			DisplayPoint();
@@ -211,10 +221,13 @@ public class Game
 		if(_currentPoint > cost)
 		{
 			_currentPoint -= cost;
+
+
+			
 			return true;
 		}
-
-		return false;
+        Console.WriteLine("Yeterli puanin yok! Mevcut Puan : " + _currentPoint.ToString());
+        return false;
 
 	}
 
@@ -226,7 +239,7 @@ public class Game
     private void _addHint(string hint)
     {
 		_acquiredHints.Add(hint);
-
+		Console.WriteLine("Yeni ipucu eklendi!");
     }
 
 
@@ -276,6 +289,7 @@ public class Game
 		{
 			_gameState = GameState.FINAL_STATE;
 		}
+		
 	}
 
 
@@ -306,6 +320,7 @@ public class Game
                 else
                 {
                     System.Console.WriteLine("Yanlis cevap!");
+					_payIfPossible(20);
                     _proceedToNextQuestion();
 
                 }
@@ -398,6 +413,7 @@ public class Game
     /// <param name="name"></param>
     public void ShowDetailsOfSuspect(string name)
     {
+     
         var suspects = _context.GetAllPeople();
         var suspect = suspects.FirstOrDefault(s => s.GetName() == name);
 
@@ -434,6 +450,20 @@ public class Game
         }
     }
 
+	public void GetHintFromSuspect(string name)
+	{
+		var res = _checkInput(name);
+		if (!res)
+		{
+			Console.WriteLine("Supheli listesinde boyle biri yok!");
+			return;
+		}
+
+		Console.ForegroundColor = ConsoleColor.Green;
+		Console.WriteLine("Hint about " + name + ":");
+		Console.ResetColor();
+
+	}
 
 	/// <summary>
     /// This function returns the extra hint attribute information of a suspect with given name.
