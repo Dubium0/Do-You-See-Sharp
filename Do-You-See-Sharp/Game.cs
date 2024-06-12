@@ -90,34 +90,6 @@ public class Game
     }
 
 	/// <summary>
-	/// With this function player can use 2 types of powerups "HALF" or "SKIP".
-	/// With "HALF" option, half of the suspects will be eliminated indicating that they are not the correct answer.
-	/// With the "SKIP" option, player can skip the question and answer of it will be added to hints of the player in case to use this information later.
-	/// </summary>
-	/// <param name="powerUp"></param> this is an PowerUp enum type, user should choose one of those.
-	public void UsePowerUp(PowerUps powerUp)
-	{
-        if (_gameState == GameState.FINISH)
-        {
-            Console.WriteLine("Oyun bitti.");
-            return;
-        }
-
-        switch (powerUp)
-		{
-			case PowerUps.SKIP:
-				_useSkipPowerUp();
-				break;
-
-			case PowerUps.HALF: 
-				_useHalfPowerUp();
-				break;
-
-		}
-
-	}
-
-	/// <summary>
 	/// This function shuffles the people list so that half option will create a fair half choice set.
 	/// </summary>
 	/// <returns></returns> a list of people, which their inital locations are shuffled.
@@ -242,10 +214,84 @@ public class Game
 
     }
 
+    /// <summary>
+    /// This private function enables us to go to the next question available 
+    /// </summary>
+    private void _proceedToNextQuestion()
+    {
+        var result = _context.MoveToNextQuestionIfAvailable();
+        if (!result)
+        {
+            _gameState = GameState.FINAL_STATE;
+        }
+    }
 
-	/// <summary>
-	/// This function shows the all hints acquired in a game.
-	/// </summary>
+
+    /// <summary>
+    /// This is a private helper function to chech case sensitivity.
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    private bool _checkInput(string input)
+    {
+        foreach (var p in _context.GetAllPeople())
+        {
+            if (p.GetName().ToLower() == input.ToLower())
+            {
+                return true;
+            }
+
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// This function prints the main story of the context.
+    /// </summary>
+    public void DisplayStory()
+    {
+        Console.Write(" ");
+
+        foreach (var p in _context.GetStory().Split('.'))
+        {
+            Console.WriteLine(p + ".");
+        }
+
+    }
+
+
+    /// <summary>
+    /// With this function player can use 2 types of powerups "HALF" or "SKIP".
+    /// With "HALF" option, half of the suspects will be eliminated indicating that they are not the correct answer.
+    /// With the "SKIP" option, player can skip the question and answer of it will be added to hints of the player in case to use this information later.
+    /// </summary>
+    /// <param name="powerUp"></param> this is an PowerUp enum type, user should choose one of those.
+    public void UsePowerUp(PowerUps powerUp)
+    {
+        if (_gameState == GameState.FINISH)
+        {
+            Console.WriteLine("Oyun bitti.");
+            return;
+        }
+
+        switch (powerUp)
+        {
+            case PowerUps.SKIP:
+                _useSkipPowerUp();
+                break;
+
+            case PowerUps.HALF:
+                _useHalfPowerUp();
+                break;
+
+        }
+
+    }
+
+
+    /// <summary>
+    /// This function shows the all hints acquired in a game.
+    /// </summary>
     public void ShowMyHints()
 	{
         Console.WriteLine("Ip uclarim :");
@@ -262,7 +308,7 @@ public class Game
 	public void DisplayPoint()
 	{
 		if (_gameState == GameState.FINISH) {
-            System.Console.WriteLine("Oyun bitti ama cok istiyorsan : ");
+            System.Console.WriteLine("Oyun bitti.");
         }
 
 		System.Console.Write("Toplam Puanin : ");
@@ -279,18 +325,6 @@ public class Game
         }
     }
 
-	/// <summary>
-	/// This private function enables us to go to the next question available 
-	/// </summary>
-	private void _proceedToNextQuestion()
-	{
-		var result = _context.MoveToNextQuestionIfAvailable();
-		if (!result)
-		{
-			_gameState = GameState.FINAL_STATE;
-		}
-	}
-
 
 	/// <summary>
 	/// This is a function which player can give answer to the current question. Name checks are not case sensitive.
@@ -298,7 +332,13 @@ public class Game
 	/// <param name="name"></param> name of the suspect as string
 	public void Answer(string name)
 	{
-		var check = _checkInput(name);
+        if (_gameState == GameState.FINISH)
+        {
+            System.Console.WriteLine("Oyun bitti.Cevap verecek soru yok.");
+            return;
+        }
+
+        var check = _checkInput(name);
 		if (!check)
 		{
 			System.Console.WriteLine("Hatali isim! Bir daha dene.");
@@ -331,8 +371,9 @@ public class Game
 				{
 					System.Console.WriteLine("Tebrikler sucluyu buldun!");
 					_gameState = GameState.FINISH;
+                    Console.WriteLine("Oyundan çıkmak için Quit fonskiyonunu çağırın.");
 
-				}
+                }
 				else
 				{
 					System.Console.WriteLine("Yanlis cevap! Sucluyu bulamadin!");
@@ -343,28 +384,11 @@ public class Game
 
 				break ;
 			case GameState.FINISH:
-				System.Console.WriteLine("Oyun bitti eve git.");
+				System.Console.WriteLine("Oyun bitti. Cevap verecek soru yok.");
 				break ;
 
 		}
 
-	}
-
-	/// <summary>
-	/// This is a private helper function to chech case sensitivity.
-	/// </summary>
-	/// <param name="input"></param>
-	/// <returns></returns>
-	private bool _checkInput(string input)
-	{
-		foreach ( var p in _context.GetPeople()) {
-			if (p.GetName().ToLower() == input.ToLower())
-			{
-				return true;
-			}
-
-		} 
-		return false;
 	}
 	
 
@@ -376,7 +400,7 @@ public class Game
 	{
 		if (_gameState == GameState.FINISH)
 		{
-			Console.WriteLine("Oyun bitti.");
+			Console.WriteLine("Oyun bitti. Daha fazla soru yok.");
 			return;
 		}
 
@@ -418,7 +442,7 @@ public class Game
         {
             Console.WriteLine($"Isim: {suspect.GetName()}");
             Console.WriteLine($"Kisisel Bilgiler: {suspect.GetInfo()}");
-            Console.WriteLine($"Iddia : {suspect.GetInitialClaim()}");
+            Console.WriteLine($"Iddiasi : {suspect.GetInitialClaim()}");
         }
         else
         {
@@ -442,7 +466,7 @@ public class Game
 			Console.ResetColor();
 
             Console.WriteLine($"Kisiel Bilgiler: {person.GetInfo()}");
-            Console.WriteLine($"Baslangic Iddiasi: {person.GetInitialClaim()}");
+            Console.WriteLine($"Iddiasi: {person.GetInitialClaim()}");
             Console.WriteLine(new string('-', 30)); // Separator
         }
     }
@@ -454,7 +478,14 @@ public class Game
 	/// <param name="name"></param>
 	public void RequestHintAboutSuspect(string name)
 	{
-		if (!_payIfPossible(20))
+
+        if (_gameState == GameState.FINISH)
+        {
+            System.Console.WriteLine("Oyun bitti.");
+            return;
+        }
+
+        if (!_payIfPossible(20))
 		{
             Console.WriteLine("Ip ucu alacak kadar puanin yok!");
             return;
@@ -474,17 +505,17 @@ public class Game
 	/// </summary>
     public void Help()
     {
-        Console.WriteLine("Do You See Sharp! Oyununa Hosgeldin!");
+        Console.WriteLine("Do You See Sharp Oyununa Hosgeldin!");
         Console.WriteLine("Oyunun oynayışı hakkında bilgi almak için HowToPlay fonskiyonunu çağırın.");
         Console.WriteLine("Oyunu başlatmak için StartGame fonksiyonunu çağırın.");
         Console.WriteLine("Oyundan çıkmak için Quit fonksiyonunu çağırın.");
+        Console.WriteLine("Oyunu oynamak için gerekli tüm fonskiyonları görmek için 'GameObject.' kullanın.");
     }
 
-    public void Quit()
-    {
-        Environment.Exit(0);
-    }
 
+    /// <summary>
+    /// This is a function to print game instructions.
+    /// </summary>
     public void HowToPlay()
 	{
         Console.WriteLine("Do You See Sharp! Oyununa Hosgeldin!");
@@ -502,16 +533,10 @@ public class Game
     }
 
     /// <summary>
-    /// This function prints the main story of the context.
+    /// With this function call interactive window will terminate and the game will over.
     /// </summary>
-    public void DisplayStory()
-	{
-		Console.Write(" ");
-
-        foreach (var p in _context.GetStory().Split('.'))
-		{
-            Console.WriteLine(p + ".");
-        }
-
-	}
+    public void Quit()
+    {
+        Environment.Exit(0);
+    }
 }

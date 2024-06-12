@@ -7,7 +7,7 @@ public class Context
 	private int _currentQuestionIndex;
 	private List<People> _people;
 
-	private Question _lastQuestion;
+	private Question _lastQuestion = new Question("",""); //dumb obj. at the beginning to avoid null ref.
 
 	public Context(string storyText)
 	{
@@ -50,7 +50,7 @@ public class Context
 		}
 		else
 		{
-			return "No hint available for this suspect.";
+			return "Bu şüpheli için başka hint mevcut değil.";
 
 		}
 	}
@@ -88,12 +88,6 @@ public class Context
 		}
 		return false;
 
-	}
-
-	public List<People> GetPeople()
-	{
-
-		return _people;
 	}
 
 }
