@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Xml.Linq;
 
-public class Game
+public sealed class Game
 {
 
 	private static readonly Game _instance = new Game();
@@ -138,7 +138,7 @@ public class Game
             List<string> names = shuffledPeople.Take(shuffledPeople.Count / 2).Select(p => p.Name).ToList();
 
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("Yari yariya guclendirmesi kullanildi!.\nGeriye kalan supheliler : \n");
+            Console.WriteLine("Yari yariya guclendirmesi kullanildi!.\nGeriye kalan supheliler :");
             Console.ResetColor();
 
             foreach (var name in names)
@@ -413,7 +413,7 @@ public class Game
 		if (currentQuestion != null)
 		{
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("Soru : \n");
+            Console.WriteLine("Soru : ");
 			Console.ResetColor();
 			
 			Console.WriteLine(currentQuestion.QuestionText);
