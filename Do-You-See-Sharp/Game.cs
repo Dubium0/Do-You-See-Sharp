@@ -237,9 +237,9 @@ public class Game
     /// <returns></returns>
     private bool _checkInput(string input)
     {
-        foreach (var p in _context.GetAllPeople())
+        foreach (var p in _context.People)
         {
-            if (p.GetName().ToLower() == input.ToLower())
+            if (p.Name.ToLower() == input.ToLower())
             {
                 return true;
             }
@@ -255,7 +255,7 @@ public class Game
     {
         Console.Write(" ");
 
-        foreach (var p in _context.GetStory().Split('.'))
+        foreach (var p in _context.StoryText.Split('.'))
         {
             Console.WriteLine(p + ".");
         }
@@ -395,22 +395,6 @@ public class Game
 
 	}
 
-	/// <summary>
-	/// This is a private helper function to chech case sensitivity.
-	/// </summary>
-	/// <param name="input"></param>
-	/// <returns></returns>
-	private bool _checkInput(string input)
-	{
-		foreach ( var p in _context.People) {
-			if (p.Name.ToLower() == input.ToLower())
-			{
-				return true;
-			}
-
-		} 
-		return false;
-	}
 	
 
 	/// <summary>
@@ -505,20 +489,23 @@ public class Game
             System.Console.WriteLine("Oyun bitti.");
             return;
         }
+        var result = _context.GetHintFromSuspect(name);
 
-        if (!_payIfPossible(20))
+        if(result == null) { return; }
+
+        if ( _payIfPossible(20) )
 		{
-            Console.WriteLine("Ip ucu alacak kadar puanin yok!");
-            return;
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine(name + " hakkinda ipucu " + ":");
+            Console.ResetColor();
+
+            Console.WriteLine(result);
+
 		}
 		else
 		{
-			Console.ForegroundColor = ConsoleColor.Green;
-			Console.WriteLine(name + " hakkinda ipucu " + ":");
-			Console.ResetColor();
-
-			Console.WriteLine(_context.GetHintFromSuspect(name));
-		}
+            Console.WriteLine("Ip ucu alacak kadar puanin yok!");
+        }
     }
 
 	/// <summary>
@@ -562,14 +549,4 @@ public class Game
     }
 
     
-    public void DisplayStory()
-	{
-		Console.Write(" ");
-
-        foreach (var p in _context.StoryText.Split('.'))
-		{
-            Console.WriteLine(p + ".");
-        }
-
-	}
 }

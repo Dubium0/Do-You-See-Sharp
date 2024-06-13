@@ -48,18 +48,24 @@ public sealed class Context
 		_people.Add(people);
 	}
 
-	public string GetHintFromSuspect(string name)
+	public string? GetHintFromSuspect(string name)
 	{
 		var suspect = _people.FirstOrDefault(p => p.Name == name);
-		if (suspect != null && suspect.IsHintAcquired)
-		{
-			return suspect.ExtraHint;
-		}
-		else
-		{
-			return "Bu şüpheli için başka hint mevcut değil.";
 
+		if (suspect == null)
+		{
+			Console.WriteLine("There is no such a suspect!");
+			return null;
 		}
+		if (suspect.IsHintAcquired)
+		{
+            Console.WriteLine("Hint is already acquired for this suspect!");
+            return null;
+		}
+		
+		return suspect.ExtraHint;
+		
+		
 	}
 	public Question GetCurrentQuestion()
 	{
