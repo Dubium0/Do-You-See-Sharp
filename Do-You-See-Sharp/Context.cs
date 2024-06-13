@@ -54,12 +54,12 @@ public sealed class Context
 
 		if (suspect == null)
 		{
-			Console.WriteLine("There is no such a suspect!");
+			Console.WriteLine("Boyle bir supheli yok!");
 			return null;
 		}
 		if (suspect.IsHintAcquired)
 		{
-            Console.WriteLine("Hint is already acquired for this suspect!");
+            Console.WriteLine("Bu supheliden ipucu almistin!");
             return null;
 		}
 		

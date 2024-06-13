@@ -27,11 +27,12 @@ public sealed class People
     {
         get 
         {
-            _isHintAcquired = true;
             if (_isHintAcquired)
             {
                 Console.WriteLine("Hint is already acquired");
             }
+            _isHintAcquired = true;
+           
             return _extraHint; 
         }
 
