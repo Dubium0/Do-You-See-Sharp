@@ -35,11 +35,11 @@ public sealed class Game
 	/// </summary>
 	private Game() 
 	{
-		_context = new Context ("Olay, tarihi ve sanatsal eserlerle ünlü bir müzede geçmektedir." +
-			" Müzenin en değerli tablolarından biri gizemli bir şekilde yok olmuştur. " +
-			"Güvenlik kameraları, olay günü altı farklı şüphelinin tablonun bulunduğu galeriden geçtiğini kaydetmiştir. " +
-			"Müze kapalıyken gerçekleşen bu olay, galerinin içindeki güvenlik sisteminin de devre dışı bırakıldığı bir zaman diliminde olmuştur. " +
-			"Olayın ardından müze çalışanları birbirlerini suçlayarak ifadeler vermişlerdir ve bazı ifadelerde çelişkiler bulunmaktadır.\n");
+        _context = new Context("Olay, tarihi ve sanatsal eserlerle ünlü bir müzede geçmektedir." +
+            " Müzenin en değerli tablolarından biri gizemli bir şekilde yok olmuştur. " +
+            "Güvenlik kameraları, olay günü altı farklı şüphelinin tablonun bulunduğu galeriden geçtiğini kaydetmiştir. " +
+            "Müze kapalıyken gerçekleşen bu olay, galerinin içindeki güvenlik sisteminin de devre dışı bırakıldığı bir zaman diliminde olmuştur. " +
+            "Olayın ardından müze çalışanları birbirlerini suçlayarak ifadeler vermişlerdir ve bazı ifadelerde çelişkiler bulunmaktadır."); 
 
 		_context.AddNewPeople(new People("Emre Aslan",
 			"35 yaşında, kısa siyah saçlı bir adam",
@@ -83,7 +83,8 @@ public sealed class Game
             "21.49 Ahmet Yıldız bahçede sigara İçiyor.\r\n" +
             "22.15 Ahmet Yıldız binanın içine giriyor.\r\n"));
 
-        _context.AddNewCameraRecord(new CameraRecord("cam3", "Eserin bulunduğu koridor", "\r\n19.25 Nur Toprak çantasını alıp odasından çıkıyor.\r\n" +
+        _context.AddNewCameraRecord(new CameraRecord("cam3", "Eserin bulunduğu koridor", 
+            "19.25 Nur Toprak çantasını alıp odasından çıkıyor.\r\n" +
             "21.25 Barış ve Leyla hızlı şekilde koridordan yürüyüp geçiyor.\r\n" +
             "21.30 Emre Aslan eserlerin tozunu alırken görüntüleniyor.\r\n" +
             "21.35 Ahmet yıldız güvenlik odasından çıkıp Emre ile sohbet ediyor.\r\n" +
@@ -519,7 +520,7 @@ public sealed class Game
 
             string hint = _context.GetHintFromSuspect(name);
 
-            _addHint(name + hint);
+            _addHint(name + " " + hint);
             Console.WriteLine(hint);            
 		}
     }
@@ -573,7 +574,7 @@ public sealed class Game
         }
         else
         {
-            Console.WriteLine($"'{name}' isimli şüpheli bulunamadı.");
+            Console.WriteLine($"'{name}' isimli kamera bulunamadı.");
         }
 
     }
