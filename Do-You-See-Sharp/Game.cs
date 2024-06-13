@@ -184,7 +184,7 @@ public sealed class Game
 		}
 		else {
 			System.Console.WriteLine("Soru geçme jokeri kullanacak kadar puanın yok! (40p)");
-			DisplayPoint();
+			ShowPoint();
 		
 		}
 
