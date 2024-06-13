@@ -432,12 +432,15 @@ public sealed class Game
                 }
 
 
-				break ;
+				return ;
 			case GameState.FINISH:
                 Console.WriteLine("Oyun bitti. Çıkmak için Quit fonskiyonunu kullan.");
-                break ;
+                return;
 
 		}
+
+        Console.WriteLine("-------------Sıradaki Soru-------------");
+        ShowCurrentQuestion();
 
 	}
 
@@ -615,6 +618,7 @@ public sealed class Game
         Console.WriteLine("Do You See Sharp Oyununa Hosgeldin!");
         Console.WriteLine("Oyunun oynayışı hakkında bilgi almak için HowToPlay fonskiyonunu çağırın.");
         Console.WriteLine("Oyunun hikayesini görmek için ShowStory fonskiyonunu çağırın.");
+        Console.WriteLine("Soruları görmek için ShowCurrentQuestion fonskiyonunu çağırın.");
         Console.WriteLine("Oyundan çıkmak için Quit fonksiyonunu çağırın.");
         Console.WriteLine("Oyunu oynamak için gerekli tüm fonskiyonları görmek için 'Game.Instance' kullanın.");
     }
