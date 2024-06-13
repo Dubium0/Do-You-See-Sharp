@@ -408,14 +408,14 @@ public sealed class Game
                         System.Console.WriteLine("Seviye : Sherlock Holmes");
                     }else if(_currentPoint > 50)
                     {
-                        System.Console.WriteLine("Seviye : Tecrubeli Dedektif");
+                        System.Console.WriteLine("Seviye : Tecrübeli Dedektif");
                     }else if (_currentPoint > 20)
                     {
                         System.Console.WriteLine("Seviye : Stajyer Dedektif");
                     }
                     else
                     {
-                        System.Console.WriteLine("Seviye : Isin meraklisi");
+                        System.Console.WriteLine("Seviye : İşin meraklisi");
                     }
 
 
@@ -426,7 +426,7 @@ public sealed class Game
                 }
 				else
 				{
-					System.Console.WriteLine("Yanlış cevap! SUçluuyu bulamadın!");
+					System.Console.WriteLine("Yanlış cevap! Suçluyu bulamadın!");
 					System.Console.WriteLine("Suçlunun ismi " + _context.LastQuestion.QuestionAnswer + " idi!");
                     _gameState = GameState.FINISH;
                 }
