@@ -59,7 +59,7 @@ public sealed class Context
 		}
 		if (suspect.IsHintAcquired)
 		{
-            Console.WriteLine("Bu supheliden ipucu almistin!");
+            Console.WriteLine("Bu şüpheli için başka hint mevcut değil.!");
             return null;
 		}
 		

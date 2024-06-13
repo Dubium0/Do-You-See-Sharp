@@ -44,34 +44,36 @@ public class Game
 			"Olayın ardından müze çalışanları birbirlerini suçlayarak ifadeler vermişlerdir ve bazı ifadelerde çelişkiler bulunmaktadır.\n");
 
 		_context.AddNewPeople(new People("Emre Aslan",
-			"35 yaşında, kısa siyah saçlı ve gözlüklü bir adam", 
-			"Müze temizlik personeli. Olay günü gece vardiyasındaydı ve sadece kendi alanlarında çalıştığını iddia ediyor.",
+			"35 yaşında, kısa siyah saçlı bir adam",
+            "Müze temizlik personeli.  Olay günü gece vardiyasındaydı. Eserin olduğu koridoru temizleyip çıktıktan sonra tekrar oraya girmediğini iddia ediyor.",
 			"Müze yönetimiyle iyi ilişkileri var ve anahtar kart erişimine sahip. Çalışma saatlerinin dışında müzede kaldığına dair güvenlik kayıtlarında bazı belirsizlikler var."));
 
 		_context.AddNewPeople(new People("Leyla Demir",
-			"29 yaşında, uzun kıvırcık kızıl saçları ve yeşil gözleri olan bir kadın", 
-			"Müze kafesinde barista. Hiçbir zaman sanat galerilerine girmediğini, çünkü sanattan anlamadığını söylüyor.",
-			"Müzenin güvenlik şifresini biliyor çünkü geç saatlerde bazen müze içinde kalmak zorunda kalıyor. Eski sevgilisi müzede güvenlik teknolojileri üzerine çalışmış ve ona sistemler hakkında bazı teknik detaylar öğretmiş."));
+			"25 yaşında, kıvırcık kızıl saçları olan bir kadın", 
+			"Müze kafesinde barista. Sanattan anlamadığı için hiçbir zaman sanat galerilerine girmediğini. İşlerini bitirdikten sonra fitness'a gittiğini iddia ediyor.",
+			"Müzenin güvenlik şifresini biliyor çünkü geç saatlerde bazen müze içinde kalmak zorunda kalıyor. Eski sevgilisi müze güvenliğinden sorumlu teknik ekipteydi."));
 
 		_context.AddNewPeople(new People("Ahmet Yıldız", 
 			"43 yaşında, kel, uzun boylu ve geniş omuzlu bir adam",
-			"Müzenin güvenlik görevlisi. O gece her şeyin normal olduğunu ve herhangi bir şüpheli hareket görmediğini belirtiyor.", 
-			"Eski bir polis memuru ve kilitli kapıları açma konusunda uzman. Müze içindeki değerli eserlerin güvenlik protokollerini yakından biliyor ve yeni güvenlik önlemleri alınmasını önermiş."));
+			"Müzenin güvenlik görevlisi. O gece görevliydi ve her şeyin normal olduğunu ve herhangi bir şüpheli hareket görmediğini belirtiyor.", 
+			"Eski bir polis memuru ve kilitli kapıları açma konusunda uzman. Müze içindeki değerli eserler için yeni güvenlik önlemleri alınmasını önermiş."));
 
 		_context.AddNewPeople(new People("Nur Toprak",
-			"50 yaşında, gri saçlı ve mavi gözlü zarif bir kadın", 
-			"Müzenin küratörü. Olay günü eve erken gittiğini ve hiçbir şeyden haberi olmadığını iddia ediyor.",
-			"Müzenin her köşesini çok iyi bilir ve nadiren kullanılan gizli geçitler hakkında bilgi sahibidir. Yakın zamanda yapılan bir sergi düzenlemesi sırasında, eski ve değerli eserlerin konumları hakkında değişiklik yapılmasını istemişti."));
+			"50 yaşında, gri saçlı zarif bir kadın", 
+			"Müzenin küratörü. Olay günü eve erken gittiğini iddia ediyor.\n" +
+            "Ayrıca tablonun oldukça ağır olduğunu ve kendisinin onu taşıyabilecek güçte olmadığını kanıt olarak sunuyor.",
+            "Müzenin her köşesini çok iyi bilir ve nadiren kullanılan gizli geçitler hakkında bilgi sahibidir. Çok disiplinli bir kadındır."));
 
 		_context.AddNewPeople(new People("Barış Kaya", 
-			"22 yaşında, dalgalı sarı saçlı ve atletik yapıda genç bir adam",
-			"Müze rehberi. Tur gruplarına liderlik ettiğini, ancak o gün hiç tur olmadığını belirtiyor.", 
-			"Gizli kamera sistemlerinin yerlerini biliyor. Rehberlik yaptığı sırada özellikle değerli sanat eserlerinin bulunduğu alanlarda tur gruplarına ekstra bilgi vermekten kaçınıyor."));
+			"29 yaşında, sarı saçlı ve atletik yapıda genç bir adam",
+			"Müze rehberi. Tur gruplarına liderlik ettiğini, ancak o gün hiç tur olmadığını belirtiyor.",
+            "Gizli kamera sistemlerinin yerlerini biliyor. Tur rehberliğinden önce uzun süre güvenlik teknolojileri üzerine çalışmış."));
 
 		_context.AddNewPeople(new People("Seda Çınar",
-			"27 yaşında, düz siyah saçlı ve kahverengi gözlü bir kadın", 
-			"Serbest zamanlı sanatçı ve sık sık müzede çalışıyor. O gece müzede olmadığını iddia ediyor.",
-			"Müzede sergilenen eserler hakkında derin bilgilere sahip ve bu eserlerin değerlerini iyi biliyor. Müzede sergilenmeyen ancak depolarda saklanan eski sanat eserleri hakkında bilgi sahibi olduğu, bu eserlere kimseye söylemeden erişim sağladığına dair dedikodular var."));
+			"27 yaşında, düz siyah saçlı bir kadın",
+            "Serbest zamanlı sanatçı ve sık sık müzede çalışıyor. " +
+            "Tur olmamasına rağmen Barış müzede olduğunu, aralarındaki bir sorundan dolayı Barış ile tartıştıktan sonra müzeden geç olmadan çıktığını ifade ediyor.",
+			"Müzede sergilenen eserler hakkında derin bilgilere sahip ve bu eserlerin değerlerini iyi biliyor. Depolarda saklanan eski sanat eserlerine kimseye söylemeden eriştiğine dair dedikodular var."));
 
 
 		_context.AddNewQuestion(new Question("Eseri baskalari da varken calmak cok riskli, herkes ciktiktan sonra calinmis olmali. Olayın gerçekleştiği gün galeriden çıkan son kişi kim olabilir?",
@@ -125,7 +127,7 @@ public class Game
 	private void _useHalfPowerUp()
 	{
 		if (_gameState != GameState.FINAL_STATE) {
-			Console.WriteLine("Bu guclendırme yalnızca son soruda kullanılabılır!");
+			Console.WriteLine("Bu güçlendirme yalnızca son soruda kullanılabilir!");
 			return;
 		
 		}
@@ -138,7 +140,7 @@ public class Game
             List<string> names = shuffledPeople.Take(shuffledPeople.Count / 2).Select(p => p.Name).ToList();
 
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("Yari yariya guclendirmesi kullanildi!.\nGeriye kalan supheliler : \n");
+            Console.WriteLine("Yarı yarıya güçlendirmesi kullanıldı!\nGeriye kalan şüpheliler : \n");
             Console.ResetColor();
 
             foreach (var name in names)
@@ -149,7 +151,7 @@ public class Game
 		else
 		{
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("Yari yariya guclendirmesi kullanacak puaninn yok!");
+            Console.WriteLine("Yarı yarıya jokeri kullanacak kadar puanın yok! (80p)");
             Console.ResetColor();
         }
     }
@@ -160,19 +162,19 @@ public class Game
     private void _useSkipPowerUp()
     {
 		if (_gameState != GameState.INITIAL_STATE) {
-			Console.WriteLine("Bu guclendırme yalnızca ılk dort soru ıcın kullanılabılır.");
+			Console.WriteLine("Bu güçlendirme yalnızca ilk 4 sorudan birisi için kullanılabilir.");
 			return ;
 		}
 
 		if (_powerUpCheck)
 		{
-            Console.WriteLine("Bu guclendırme yalnızca bir kez kullanilabilir.");
+            Console.WriteLine("Bu güçlendirme yalnızca bir kez kullanılabilir.");
             return;
 
         }
 		if (_payIfPossible(40))
 		{
-            Console.WriteLine("Soru gecme guclendirmesi kullanildi!");
+            Console.WriteLine("Soruyu atlama jokeri kullanıldı! Cevabı hint olarak listende görebilirsin.");
             var q = _context.GetCurrentQuestion();
 			_addHint( q.QuestionText +" : " +q.QuestionAnswer);
 			_proceedToNextQuestion();
@@ -181,7 +183,7 @@ public class Game
 
 		}
 		else {
-			System.Console.WriteLine("Soru gecme jokeri kullanacak kadar puanin yok!");
+			System.Console.WriteLine("Soru geçme jokeri kullanacak kadar puanın yok! (40p)");
 			DisplayPoint();
 		
 		}
@@ -273,7 +275,7 @@ public class Game
     {
         if (_gameState == GameState.FINISH)
         {
-            Console.WriteLine("Oyun bitti.");
+            Console.WriteLine("Oyun bitti. Çıkmak için Quit fonskiyonunu kullan.");
             return;
         }
 
@@ -297,7 +299,7 @@ public class Game
     /// </summary>
     public void ShowMyHints()
 	{
-        Console.WriteLine("Ip uclarim :");
+        Console.WriteLine("Ip uçlarım :");
         foreach (var acquiredHint in _acquiredHints)
         {
             Console.WriteLine("-" + acquiredHint);
@@ -314,7 +316,7 @@ public class Game
             System.Console.WriteLine("Oyun bitti.");
         }
 
-		System.Console.Write("Toplam Puanin : ");
+		System.Console.Write("Toplam Puanın: ");
 		if (_currentPoint < 50)
 		{
 			Console.ForegroundColor = ConsoleColor.Red;
@@ -337,14 +339,14 @@ public class Game
 	{
         if (_gameState == GameState.FINISH)
         {
-            System.Console.WriteLine("Oyun bitti.Cevap verecek soru yok.");
+            Console.WriteLine("Oyun bitti. Çıkmak için Quit fonskiyonunu kullan.");
             return;
         }
 
         var check = _checkInput(name);
 		if (!check)
 		{
-			System.Console.WriteLine("Hatali isim! Bir daha dene.");
+			System.Console.WriteLine("Hatalı isim! Bir daha dene.");
 
 			return;
 		}
@@ -355,13 +357,14 @@ public class Game
                 if (_context.TryToAnswerToCurrentQuestion(name))
                 {
                     var q = _context.GetCurrentQuestion();
-                    System.Console.WriteLine("Dogru cevap!");
+                    System.Console.WriteLine("Doğru cevap!");
                     _addHint(q.QuestionText + " : " + q.QuestionAnswer);
                     _proceedToNextQuestion();
                 }
                 else
                 {
-                    System.Console.WriteLine("Yanlis cevap!");
+                    System.Console.WriteLine("Yanlış cevap!");
+                    _currentPoint = _currentPoint - 15;
                     _proceedToNextQuestion();
 
                 }
@@ -373,23 +376,23 @@ public class Game
 
 				if (result)
 				{
-					System.Console.WriteLine("Tebrikler sucluyu buldun!");
+					System.Console.WriteLine("Tebrikler suçluyu buldun!");
 					_gameState = GameState.FINISH;
-                    Console.WriteLine("Oyundan çıkmak için Quit fonskiyonunu çağırın.");
+                    Console.WriteLine("Oyun bitti. Çıkmak için Quit fonskiyonunu kullan.");
 
                 }
 				else
 				{
-					System.Console.WriteLine("Yanlis cevap! Sucluyu bulamadin!");
-					System.Console.WriteLine("Suclunun ismi " + _context.LastQuestion.QuestionAnswer + " idi!");
+					System.Console.WriteLine("Yanlış cevap! SUçluuyu bulamadın!");
+					System.Console.WriteLine("Suçlunun ismi " + _context.LastQuestion.QuestionAnswer + " idi!");
                     _gameState = GameState.FINISH;
                 }
 
 
 				break ;
 			case GameState.FINISH:
-				System.Console.WriteLine("Oyun bitti. Cevap verecek soru yok.");
-				break ;
+                Console.WriteLine("Oyun bitti. Çıkmak için Quit fonskiyonunu kullan.");
+                break ;
 
 		}
 
@@ -405,15 +408,15 @@ public class Game
 	{
 		if (_gameState == GameState.FINISH)
 		{
-			Console.WriteLine("Oyun bitti. Daha fazla soru yok.");
-			return;
+            Console.WriteLine("Oyun bitti. Çıkmak için Quit fonskiyonunu kullan.");
+            return;
 		}
 
 		Question currentQuestion = _context.GetCurrentQuestion();
 		if (currentQuestion != null)
 		{
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("Soru : \n");
+            Console.WriteLine("Soru :");
 			Console.ResetColor();
 			
 			Console.WriteLine(currentQuestion.QuestionText);
@@ -445,13 +448,13 @@ public class Game
 
         if (suspect != null)
         {
-            Console.WriteLine($"Isim: {suspect.Name}");
-            Console.WriteLine($"Kisisel Bilgiler: {suspect.Info}");
-            Console.WriteLine($"Iddia : {suspect.InitialClaim}");
+            Console.WriteLine($"İsim: {suspect.Name}");
+            Console.WriteLine($"Kişisel Bilgiler: {suspect.Info}");
+            Console.WriteLine($"Iddiası : {suspect.InitialClaim}");
         }
         else
         {
-            Console.WriteLine($"'{name}' isimli supheli bulunamadi.");
+            Console.WriteLine($"'{name}' isimli şüpheli bulunamadı.");
         }
     }
 
@@ -467,11 +470,11 @@ public class Game
         foreach (var person in suspects)
         {
             Console.ForegroundColor = ConsoleColor.Magenta;
-            Console.WriteLine($"Isim: {person.Name}");
+            Console.WriteLine($"İsim: {person.Name}");
 			Console.ResetColor();
 
-            Console.WriteLine($"Baslangic Iddiasi: {person.InitialClaim}");
-            Console.WriteLine($"Kisiel Bilgiler: {person.Info}");
+            Console.WriteLine($"iddiasi: {person.InitialClaim}");
+            Console.WriteLine($"Kişisel Bilgiler: {person.Info}");
             Console.WriteLine(new string('-', 30)); // Separator
         }
     }
@@ -486,26 +489,26 @@ public class Game
 
         if (_gameState == GameState.FINISH)
         {
-            System.Console.WriteLine("Oyun bitti.");
+            Console.WriteLine("Oyun bitti. Çıkmak için Quit fonskiyonunu kullan.");
             return;
         }
-        var result = _context.GetHintFromSuspect(name);
 
-        if(result == null) { return; }
-
-        if ( _payIfPossible(20) )
+        if (!_payIfPossible(20))
 		{
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine(name + " hakkinda ipucu " + ":");
-            Console.ResetColor();
-
-            Console.WriteLine(result);
-
+            Console.WriteLine("İp ucu alacak kadar puanın yok!");
+            return;
 		}
 		else
 		{
-            Console.WriteLine("Ip ucu alacak kadar puanin yok!");
-        }
+			Console.ForegroundColor = ConsoleColor.Green;
+			Console.WriteLine(name + " hakkında ipucu " + ":");
+			Console.ResetColor();
+
+            string hint = _context.GetHintFromSuspect(name);
+
+            _addHint(hint);
+            Console.WriteLine(hint);            
+		}
     }
 
 	/// <summary>
@@ -526,16 +529,11 @@ public class Game
     /// </summary>
     public void HowToPlay()
 	{
-        Console.WriteLine("Do You See Sharp Oyununa Hosgeldin!");
-        Console.WriteLine("Bu oyun hikaye tabanlı bir dedektiflik oyunudur. Oyun başladığında, olay hakkında bilgi içeren kısa bir paragrafı okuyacaksınız.");
-        Console.WriteLine("Olayın şüphelileri hakkında bilgileri ve iddialarını öğrenmek için sağlanan fonksiyonları kullanın.");
-        Console.WriteLine("İlk aşamada 4 adet yönlendirici soru alacaksınız.");
-        Console.WriteLine("Bir soruyu yanlış cevaplarsanız 15 puan kaybedeceksiniz ve doğru cevabı göremeyeceksiniz.");
-        Console.WriteLine("Doğru cevaplarsanız soru-cevap ikilisi, oyunda elde ettiğiniz hint envanterine eklenecektir.");
-        Console.WriteLine("İlk 4 soruyu doğru cevaplarsanız, şüpheli listesi giderek daralacak ve final sorusunda suçluyu doğru tahmin etme ihtimaliniz artacak şekilde tasarlandı.");
-        Console.WriteLine("Ayrıca oyunda çeşitli güçlendirme seçenekleri bulunmaktadır. İlk 4 soru için, 40 puan karşılığında soruyu atlayabilirsiniz. Bu seçeneği kullandığınızda, soru-cevap ikilisi hint envanterine eklenecektir.");
-        Console.WriteLine("Final aşamasında 80 puan karşılığı, 'half' seçeneğini kullanarak yanlış cevapların yarısını eleyebilirsiniz.");
-        Console.WriteLine("20 puan karşılığında, bir şüpheliden ekstra hint alabilirsiniz.");
+        Console.WriteLine("Hoşgeldin! Olay hakkında paragraf oku, şüphelileri ve iddiaları incele.");
+        Console.WriteLine("İlk aşamada 4 soru alacaksın, yanlış cevap 15 puan kaybettirir, doğru cevap hint listene eklenir.");
+        Console.WriteLine("Doğru cevaplar şüpheli listesini daraltır, finalde suçluyu tahmin etme şansını arttırır.");
+        Console.WriteLine("İlk 4 soru için 40 puanla soruyu atlamaya, finalde ise 80 puanla yarıya kadar yanlış cevapları elemeye yardımcı olabilirsin.");
+        Console.WriteLine("20 puanla bir şüpheliden ekstra hint alabilirsin.");
         Console.WriteLine("Detaylara dikkat etmeyi unutmayın! İyi eğlenceler.");
 
     }
@@ -547,6 +545,4 @@ public class Game
     {
         Environment.Exit(0);
     }
-
-    
 }
