@@ -395,6 +395,24 @@ public sealed class Game
 				if (result)
 				{
 					System.Console.WriteLine("Tebrikler suçluyu buldun!");
+
+                    if(_currentPoint > 80)
+                    {
+                        System.Console.WriteLine("Seviye : Sherlock Holmes");
+                    }else if(_currentPoint > 50)
+                    {
+                        System.Console.WriteLine("Seviye : Tecrubeli Dedektif");
+                    }else if (_currentPoint > 20)
+                    {
+                        System.Console.WriteLine("Seviye : Stajyer Dedektif");
+                    }
+                    else
+                    {
+                        System.Console.WriteLine("Seviye : Isin meraklisi");
+                    }
+
+
+
 					_gameState = GameState.FINISH;
                     Console.WriteLine("Oyun bitti. Çıkmak için Quit fonskiyonunu kullan.");
 
