@@ -416,7 +416,7 @@ public sealed class Game
 		if (currentQuestion != null)
 		{
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("Soru :");
+            Console.WriteLine("Soru: ");
 			Console.ResetColor();
 			
 			Console.WriteLine(currentQuestion.QuestionText);
@@ -469,12 +469,9 @@ public sealed class Game
 
         foreach (var person in suspects)
         {
-            Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine($"İsim: {person.Name}");
-			Console.ResetColor();
-
-            Console.WriteLine($"iddiasi: {person.InitialClaim}");
             Console.WriteLine($"Kişisel Bilgiler: {person.Info}");
+            Console.WriteLine($"iddiasi: {person.InitialClaim}");
             Console.WriteLine(new string('-', 30)); // Separator
         }
     }
