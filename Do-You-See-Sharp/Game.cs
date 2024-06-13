@@ -3,13 +3,18 @@ using System.Xml.Linq;
 
 public class Game
 {
+
+	private static readonly Game _instance = new Game();
+	public static Game Instance
+	{
+		get { return _instance; }
+	}
+
+
+
 	private Context _context;
 	private List<string> _acquiredHints = new List<string>();
 	private int _currentPoint = 100;
-	private string _culpritName;
-	private string _lastQuestionTxt = "Who is the culprit?";
-
-
 	private bool _powerUpCheck = false;
 
     public enum PowerUps
@@ -30,7 +35,7 @@ public class Game
 	/// <summary>
 	/// Constructor of the Game Class
 	/// </summary>
-	public Game()
+	private Game() 
 	{
 		_context = new Context ("Olay, tarihi ve sanatsal eserlerle ünlü bir müzede geçmektedir." +
 			" Müzenin en değerli tablolarından biri gizemli bir şekilde yok olmuştur. " +
@@ -81,9 +86,7 @@ public class Game
         _context.AddNewQuestion(new Question("Müzede sergilenen eserler hakkında derin bilgilere sahip olan bir kişinin, değerli bir tablonun kaybolmasında bir çıkarı olabilir. Bu profili hangi şüpheli karşılar?", 
 			"Seda Çınar"));
 
-		_culpritName = "Leyla Demir";
-
-		_context.SetLastQuestion(new Question(_lastQuestionTxt, _culpritName));
+		_context.LastQuestion = new Question("Who is the culprit?", "Leyla Demir");
 
         Help();
 
@@ -96,15 +99,15 @@ public class Game
 	private List<People> _shufflePeople()
 	{
         Random _random = new Random();
-        string correctAnswer = _context.GetCurrentQuestion().GetAnswerText();
-        List<People> shuffledPeople = _context.GetAllPeople();
+        string correctAnswer = _context.GetCurrentQuestion().QuestionAnswer;
+        List<People> shuffledPeople = (List<People>)_context.People;
 
         var halfSize = shuffledPeople.Count / 2;
 
         // Shuffle the list randomly
         shuffledPeople = shuffledPeople.OrderBy(x => _random.Next()).ToList();
 
-        People correctPerson = shuffledPeople.Find(p => p.GetName() == correctAnswer);
+        People correctPerson = shuffledPeople.Find(p => p.Name == correctAnswer);
 
         if (shuffledPeople.IndexOf(correctPerson) >= halfSize)
         {
@@ -132,7 +135,7 @@ public class Game
 		{
             
             List<People> shuffledPeople = _shufflePeople();
-            List<string> names = shuffledPeople.Take(shuffledPeople.Count / 2).Select(p => p.GetName()).ToList();
+            List<string> names = shuffledPeople.Take(shuffledPeople.Count / 2).Select(p => p.Name).ToList();
 
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Yari yariya guclendirmesi kullanildi!.\nGeriye kalan supheliler : \n");
@@ -171,7 +174,7 @@ public class Game
 		{
             Console.WriteLine("Soru gecme guclendirmesi kullanildi!");
             var q = _context.GetCurrentQuestion();
-			_addHint( q.GetQuestionText() +" : " +q.GetAnswerText());
+			_addHint( q.QuestionText +" : " +q.QuestionAnswer);
 			_proceedToNextQuestion();
 			_powerUpCheck = true;
          
@@ -353,7 +356,7 @@ public class Game
                 {
                     var q = _context.GetCurrentQuestion();
                     System.Console.WriteLine("Dogru cevap!");
-                    _addHint(q.GetQuestionText() + " : " + q.GetAnswerText());
+                    _addHint(q.QuestionText + " : " + q.QuestionAnswer);
                     _proceedToNextQuestion();
                 }
                 else
@@ -365,7 +368,8 @@ public class Game
                 break;
 			case GameState.FINAL_STATE:
 
-                var result = _culpritName.ToLower() == name.ToLower();
+				
+                var result = _context.LastQuestion.QuestionAnswer.ToLower() == name.ToLower();
 
 				if (result)
 				{
@@ -377,7 +381,7 @@ public class Game
 				else
 				{
 					System.Console.WriteLine("Yanlis cevap! Sucluyu bulamadin!");
-					System.Console.WriteLine("Suclunun ismi " + _culpritName + " idi!");
+					System.Console.WriteLine("Suclunun ismi " + _context.LastQuestion.QuestionAnswer + " idi!");
                     _gameState = GameState.FINISH;
                 }
 
@@ -389,6 +393,23 @@ public class Game
 
 		}
 
+	}
+
+	/// <summary>
+	/// This is a private helper function to chech case sensitivity.
+	/// </summary>
+	/// <param name="input"></param>
+	/// <returns></returns>
+	private bool _checkInput(string input)
+	{
+		foreach ( var p in _context.People) {
+			if (p.Name.ToLower() == input.ToLower())
+			{
+				return true;
+			}
+
+		} 
+		return false;
 	}
 	
 
@@ -411,7 +432,7 @@ public class Game
             Console.WriteLine("Soru : \n");
 			Console.ResetColor();
 			
-			Console.WriteLine(currentQuestion.GetQuestionText());
+			Console.WriteLine(currentQuestion.QuestionText);
 		}
 	}
 
@@ -420,10 +441,10 @@ public class Game
 	/// </summary>
 	public void ShowNamesOfAllSuspects()
 	{
-        var suspects = _context.GetAllPeople();
+        var suspects = _context.People;
         foreach (var suspect in suspects)
         {
-            Console.WriteLine(suspect.GetName());
+            Console.WriteLine(suspect.Name);
         }
 
     }
@@ -435,14 +456,14 @@ public class Game
     /// <param name="name"></param>
     public void ShowDetailsOfSuspect(string name)
     {
-        var suspects = _context.GetAllPeople();
-        var suspect = suspects.FirstOrDefault(s => s.GetName() == name);
+        var suspects = _context.People;
+        var suspect = suspects.FirstOrDefault(s => s.Name== name);
 
         if (suspect != null)
         {
-            Console.WriteLine($"Isim: {suspect.GetName()}");
-            Console.WriteLine($"Kisisel Bilgiler: {suspect.GetInfo()}");
-            Console.WriteLine($"Iddiasi : {suspect.GetInitialClaim()}");
+            Console.WriteLine($"Isim: {suspect.Name}");
+            Console.WriteLine($"Kisisel Bilgiler: {suspect.Info}");
+            Console.WriteLine($"Iddia : {suspect.InitialClaim}");
         }
         else
         {
@@ -457,16 +478,16 @@ public class Game
     /// <param name="name"></param>
     public void ShowAllDetailsOfSuspects()
 	{
-        var suspects = _context.GetAllPeople();
+        var suspects = _context.People;
 
         foreach (var person in suspects)
         {
             Console.ForegroundColor = ConsoleColor.Magenta;
-            Console.WriteLine($"Isim: {person.GetName()}");
+            Console.WriteLine($"Isim: {person.Name}");
 			Console.ResetColor();
 
-            Console.WriteLine($"Kisiel Bilgiler: {person.GetInfo()}");
-            Console.WriteLine($"Iddiasi: {person.GetInitialClaim()}");
+            Console.WriteLine($"Baslangic Iddiasi: {person.InitialClaim}");
+            Console.WriteLine($"Kisiel Bilgiler: {person.Info}");
             Console.WriteLine(new string('-', 30)); // Separator
         }
     }
@@ -539,4 +560,16 @@ public class Game
     {
         Environment.Exit(0);
     }
+
+    
+    public void DisplayStory()
+	{
+		Console.Write(" ");
+
+        foreach (var p in _context.StoryText.Split('.'))
+		{
+            Console.WriteLine(p + ".");
+        }
+
+	}
 }

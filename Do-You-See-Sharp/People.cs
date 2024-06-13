@@ -1,12 +1,47 @@
 ﻿using System;
 
-public class People
+public sealed class People
 {
     private string _name;
     private string _info;
     private string _initialClaim;
     private string _extraHint;
     private bool _isHintAcquired;
+    
+    public string Name
+    {
+        get => _name;
+
+    }
+
+    public string Info
+    {
+        get => _info; 
+    }
+    public string InitialClaim
+    {
+        get =>  _initialClaim; 
+
+    }
+    public string ExtraHint
+    {
+        get 
+        {
+            _isHintAcquired = true;
+            if (_isHintAcquired)
+            {
+                Console.WriteLine("Hint is already acquired");
+            }
+            return _extraHint; 
+        }
+
+    }
+
+    public bool IsHintAcquired
+    {
+        get => _isHintAcquired;
+    }
+
 
     public People(string name, string info, string initialClaim, string extraHint)
     {
@@ -16,47 +51,6 @@ public class People
         _extraHint = extraHint;
         _isHintAcquired = false;
     }
-    public void SetName(string value)
-    {
-        _name = value;
-    }
-    public string GetName()
-    {
-        return _name;
-    }
-    public string GetInfo()
-    {
-        return _info;
-    }
 
-    public void SetInfo(string value)
-    {
-        _info = value;
-    }
-
-    public string GetInitialClaim()
-    {
-        return _initialClaim;
-    }
-
-    public void SetInitialClaim(string value)
-    {
-        _initialClaim = value;
-    }
-
-    public string GetExtraHint()
-    {
-        _isHintAcquired = true;
-        return _extraHint;
-    }
-
-    public void SetExtraHint(string value)
-    {
-        _extraHint = value;
-    }
-
-    public bool IsHintAcquired()
-    {
-        return _isHintAcquired;
-    }
+    
 }

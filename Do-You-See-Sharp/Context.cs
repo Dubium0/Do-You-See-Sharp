@@ -1,6 +1,6 @@
 ﻿using System;
 
-public class Context
+public sealed class Context
 {
 	private string _storyText;
 	private List<Question> _questions;
@@ -9,7 +9,27 @@ public class Context
 
 	private Question _lastQuestion = new Question("",""); //dumb obj. at the beginning to avoid null ref.
 
-	public Context(string storyText)
+	public Question LastQuestion
+	{
+		get { return _lastQuestion; }
+		set { _lastQuestion = value; }
+	}
+    public IReadOnlyList<Question> Questions
+	{
+		get { return _questions; }
+	}
+    public IReadOnlyList<People> People
+    {
+        get { return _people; }
+    }
+
+    public string StoryText
+	{
+		get { return _storyText; }
+	}
+
+
+    public Context(string storyText)
 	{
 		_storyText = storyText;
 		_questions = new List<Question>();
@@ -22,42 +42,24 @@ public class Context
 	{
 		_questions.Add(question);
 	}
-	public void SetLastQuestion(Question lastQuestion) 
-	{
-        _lastQuestion = lastQuestion;
-    }
-
-    public Question GetLastQuestion()
-    {
-        return _lastQuestion;
-    }
 
     public void AddNewPeople(People people)
 	{
 		_people.Add(people);
 	}
 
-    public List<People> GetAllPeople()
-    {
-        return _people;
-    }
 	public string GetHintFromSuspect(string name)
 	{
-		var suspect = _people.FirstOrDefault(p => p.GetName() == name);
-		if (suspect != null && suspect.IsHintAcquired())
+		var suspect = _people.FirstOrDefault(p => p.Name == name);
+		if (suspect != null && suspect.IsHintAcquired)
 		{
-			return suspect.GetExtraHint();
+			return suspect.ExtraHint;
 		}
 		else
 		{
 			return "Bu şüpheli için başka hint mevcut değil.";
 
 		}
-	}
-
-    public string GetStory()
-	{
-		return _storyText; 
 	}
 	public Question GetCurrentQuestion()
 	{
@@ -74,7 +76,7 @@ public class Context
     public bool TryToAnswerToCurrentQuestion(string answer)
     {
         // remove case sensitivity
-        return answer.ToLower() == _questions[_currentQuestionIndex].GetAnswerText().ToLower();
+        return answer.ToLower() == _questions[_currentQuestionIndex].QuestionAnswer.ToLower();
     }
 
     public bool MoveToNextQuestionIfAvailable()
