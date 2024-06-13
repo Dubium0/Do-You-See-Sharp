@@ -271,6 +271,12 @@ public sealed class Game
         return false;
     }
 
+    private void _fixPointToZero()
+    {
+        if(_currentPoint < 0)
+            _currentPoint = 0;
+    }
+
     /// <summary>
     /// This function prints the main story of the context.
     /// </summary>
@@ -336,11 +342,9 @@ public sealed class Game
         }
 
 		System.Console.Write("Toplam Puanın: ");
-		if (_currentPoint < 50)
+		if (_currentPoint == 0)
 		{
-			Console.ForegroundColor = ConsoleColor.Red;
-			Console.WriteLine(_currentPoint);
-            Console.ResetColor();
+			Console.WriteLine(_currentPoint + " Artık hiçbir güçlendirme kullanamaz veya hint alamazsın.");
         }
 		else {
             Console.ForegroundColor = ConsoleColor.Green;
@@ -384,6 +388,8 @@ public sealed class Game
                 {
                     System.Console.WriteLine("Yanlış cevap!");
                     _currentPoint = _currentPoint - 15;
+                    _fixPointToZero();
+                    ShowPoint();
                     _proceedToNextQuestion();
 
                 }
