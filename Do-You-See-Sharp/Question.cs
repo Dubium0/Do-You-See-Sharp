@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 public sealed class Question
 {
-
     private string _questionText;
 
     private string _questionAnswer;
@@ -24,8 +23,6 @@ public sealed class Question
         get => _questionAnswer;
 
     }
-
-
 
     public Question(string questionText, string questionAnswer)
     {

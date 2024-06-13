@@ -10,8 +10,6 @@ public sealed class Game
 		get { return _instance; }
 	}
 
-
-
 	private Context _context;
 	private List<string> _acquiredHints = new List<string>();
 	private int _currentPoint = 100;
@@ -76,7 +74,33 @@ public sealed class Game
 			"Müzede sergilenen eserler hakkında derin bilgilere sahip ve bu eserlerin değerlerini iyi biliyor. Depolarda saklanan eski sanat eserlerine kimseye söylemeden eriştiğine dair dedikodular var."));
 
 
-		_context.AddNewQuestion(new Question("Eseri baskalari da varken calmak cok riskli, herkes ciktiktan sonra calinmis olmali. Olayın gerçekleştiği gün galeriden çıkan son kişi kim olabilir?",
+
+
+        _context.AddNewCameraRecord(new CameraRecord("cam1", "Müze giriş çıkışları", "*no records! All off them are deleted"));
+
+        _context.AddNewCameraRecord(new CameraRecord("cam2", "Arka Bahçe",
+            "19.30 Nur Toprak bahçede kahve içiyor.\r\n" +
+            "21.49 Ahmet Yıldız bahçede sigara İçiyor.\r\n" +
+            "22.15 Ahmet Yıldız binanın içine giriyor.\r\n"));
+
+        _context.AddNewCameraRecord(new CameraRecord("cam3", "Eserin bulunduğu koridor", "\r\n19.25 Nur Toprak çantasını alıp odasından çıkıyor.\r\n" +
+            "21.25 Barış ve Leyla hızlı şekilde koridordan yürüyüp geçiyor.\r\n" +
+            "21.30 Emre Aslan eserlerin tozunu alırken görüntüleniyor.\r\n" +
+            "21.35 Ahmet yıldız güvenlik odasından çıkıp Emre ile sohbet ediyor.\r\n" +
+            "*no records \r\n" +
+            "22.35 Eserin sergilendiği koridorda insan gölgesi görünüyor.\r\n" +
+            "*no records \r\n" +
+            "23.20 Eserin yerinde olmadığı görünüyor.\r\n"));
+
+        _context.AddNewCameraRecord(new CameraRecord("cam4", "Cafe Bölümü", 
+            "19.30 Barış ile Seda tartışıyor. Leyla Barış’ın tarafında durup onu geri çekmeye çalışıyor. \r\n" +
+            "20.10 Barış ile Leyla el ele tutuşurken görüntüleniyor.\r\n" +
+            "21.20 Barış ve Leyla Kafeden ayrılıyor.\r\n" +
+            "21.45 Leyla Demir’in mutfak bölümünde bardakları dizdiği görünüyor.\r\n"));
+
+
+
+        _context.AddNewQuestion(new Question("Eseri baskalari da varken calmak cok riskli, herkes ciktiktan sonra calinmis olmali. Olayın gerçekleştiği gün galeriden çıkan son kişi kim olabilir?",
 			"Leyla Demir"));
 
         _context.AddNewQuestion(new Question("Birileri müzede olup olmadığı ile ilgili yalan konuşuyor. Bu kim olabilir?",
@@ -91,7 +115,6 @@ public sealed class Game
 		_context.LastQuestion = new Question("Suçlu kim?", "Leyla Demir");
 
         Help();
-
     }
 
 	/// <summary>
@@ -187,7 +210,6 @@ public sealed class Game
 			ShowPoint();
 		
 		}
-
     }
 
 	/// <summary>
@@ -205,7 +227,6 @@ public sealed class Game
 		}
 
 		return false;
-
 	}
 
 
@@ -216,7 +237,6 @@ public sealed class Game
     private void _addHint(string hint)
     {
 		_acquiredHints.Add(hint);
-
     }
 
     /// <summary>
@@ -261,7 +281,6 @@ public sealed class Game
         {
             Console.WriteLine(p + ".");
         }
-
     }
 
 
@@ -290,7 +309,6 @@ public sealed class Game
                 break;
 
         }
-
     }
 
 
@@ -399,7 +417,6 @@ public sealed class Game
 	}
 
 	
-
 	/// <summary>
 	/// This is a function to display the current question in the game. If the game has not finished yet, it will print the current question. 
 	/// Else it will indicate that game is over.
@@ -438,13 +455,30 @@ public sealed class Game
 
 
     /// <summary>
+    /// This function prints the name, information and claims of the all suspects in a context.
+    /// </summary>
+    /// <param name="name"></param>
+    public void ShowDetailsOfAllSuspects()
+	{
+        var suspects = _context.People;
+
+        foreach (var person in suspects)
+        {
+            Console.WriteLine($"İsim: {person.Name}");
+            Console.WriteLine($"Kişisel Bilgiler: {person.Info}");
+            Console.WriteLine($"iddiasi: {person.InitialClaim}");
+            Console.WriteLine(new string('-', 30)); // Separator
+        }
+    }
+
+    /// <summary>
     /// This function prints the name, information and claims of the specified suspect in a context.
     /// </summary>
     /// <param name="name"></param>
-    public void ShowDetailsOfSuspect(string name)
+    public void ShowDetailsOfASuspect(string name)
     {
         var suspects = _context.People;
-        var suspect = suspects.FirstOrDefault(s => s.Name== name);
+        var suspect = suspects.FirstOrDefault(s => s.Name == name);
 
         if (suspect != null)
         {
@@ -460,28 +494,10 @@ public sealed class Game
 
 
     /// <summary>
-    /// This function prints the name, information and claims of the all suspects in a context.
+    /// This function returns the extra hint attribute information of a suspect with given name.
     /// </summary>
     /// <param name="name"></param>
-    public void ShowAllDetailsOfSuspects()
-	{
-        var suspects = _context.People;
-
-        foreach (var person in suspects)
-        {
-            Console.WriteLine($"İsim: {person.Name}");
-            Console.WriteLine($"Kişisel Bilgiler: {person.Info}");
-            Console.WriteLine($"iddiasi: {person.InitialClaim}");
-            Console.WriteLine(new string('-', 30)); // Separator
-        }
-    }
-
-
-	/// <summary>
-    /// This function returns the extra hint attribute information of a suspect with given name.
-	/// </summary>
-	/// <param name="name"></param>
-	public void RequestHintAboutSuspect(string name)
+    public void RequestHintAboutSuspect(string name)
 	{
 
         if (_gameState == GameState.FINISH)
@@ -508,9 +524,63 @@ public sealed class Game
 		}
     }
 
-	/// <summary>
-	/// This function prints the help options of the game.
-	/// </summary>
+
+    /// <summary>
+    /// Returns the names of all cameras
+    /// </summary>
+    public void ShowCameraNames()
+    {
+        var cameras = _context.CameraRecords;
+        foreach (var cam in cameras)
+        {
+            Console.WriteLine(cam.Name);
+        }
+
+    }
+
+    /// <summary>
+    /// prints the records of all cameras
+    /// </summary>
+    public void ShowAllCameraRecords()
+    {
+
+        var cameras = _context.CameraRecords;
+
+        foreach (var camera in cameras)
+        {
+            Console.WriteLine($"Kamera: {camera.Name}");
+            Console.WriteLine($"Gördüğü Lokasyon: {camera.Location}");
+            Console.WriteLine($"Kayıtlar: \n{camera.Record}");
+            Console.WriteLine(new string('-', 30)); // Separator
+        }
+    }
+
+
+    /// <summary>
+    /// Prints the record of a camera specified by name
+    /// </summary>
+    /// <param name="name"></param>
+    public void ShowCameraRecord(string name)
+    {
+        var cameras = _context.CameraRecords;
+        var camera = cameras.FirstOrDefault(s => s.Name == name);
+
+        if (camera != null)
+        {
+            Console.WriteLine($"Kamera: {camera.Name}");
+            Console.WriteLine($"Gördüğü Lokasyon: {camera.Location}");
+            Console.WriteLine($"Kayıtlar: \n{camera.Record}");
+        }
+        else
+        {
+            Console.WriteLine($"'{name}' isimli şüpheli bulunamadı.");
+        }
+
+    }
+
+    /// <summary>
+    /// This function prints the help options of the game.
+    /// </summary>
     public void Help()
     {
         Console.WriteLine("Do You See Sharp Oyununa Hosgeldin!");

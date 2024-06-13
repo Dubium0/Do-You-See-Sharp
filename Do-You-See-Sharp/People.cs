@@ -11,7 +11,6 @@ public sealed class People
     public string Name
     {
         get => _name;
-
     }
 
     public string Info
@@ -21,7 +20,6 @@ public sealed class People
     public string InitialClaim
     {
         get =>  _initialClaim; 
-
     }
     public string ExtraHint
     {
@@ -52,6 +50,4 @@ public sealed class People
         _extraHint = extraHint;
         _isHintAcquired = false;
     }
-
-    
 }

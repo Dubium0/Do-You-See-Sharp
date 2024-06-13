@@ -40,10 +40,7 @@ public sealed class Context
 		_questions = new List<Question>();
 		_people = new List<People>();
         _cameraRecords = new List<CameraRecord>();
-
-
         _currentQuestionIndex = 0;
-
     }
 
 	public void AddNewQuestion(Question question)
@@ -56,7 +53,12 @@ public sealed class Context
 		_people.Add(people);
 	}
 
-	public string? GetHintFromSuspect(string name)
+    public void AddNewCameraRecord(CameraRecord camRecord)
+    {
+        _cameraRecords.Add(camRecord);
+    }
+
+    public string? GetHintFromSuspect(string name)
 	{
 		var suspect = _people.FirstOrDefault(p => p.Name == name);
 
@@ -72,9 +74,8 @@ public sealed class Context
 		}
 		
 		return suspect.ExtraHint;
-		
-		
 	}
+
 	public Question GetCurrentQuestion()
 	{
 		if (_questions.Count - 1 > _currentQuestionIndex)
@@ -87,6 +88,7 @@ public sealed class Context
 			return _lastQuestion;
 		}
 	}
+
     public bool TryToAnswerToCurrentQuestion(string answer)
     {
         // remove case sensitivity
@@ -103,7 +105,5 @@ public sealed class Context
 
 		}
 		return false;
-
 	}
-
 }
