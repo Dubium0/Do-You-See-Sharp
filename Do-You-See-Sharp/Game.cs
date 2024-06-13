@@ -45,11 +45,11 @@ public sealed class Game
 
 		_context.AddNewPeople(new People("Emre Aslan",
 			"35 yaşında, kısa siyah saçlı bir adam",
-            "Müze temizlik personeli.  Olay günü gece vardiyasındaydı. Eserin olduğu koridoru temizleyip çıktıktan sonra tekrar oraya girmediğini iddia ediyor.",
+            "Müze temizlik personeli. Olay günü gece vardiyasındaydı. Eserin olduğu koridoru temizleyip çıktıktan sonra tekrar oraya girmediğini iddia ediyor.",
 			"Müze yönetimiyle iyi ilişkileri var ve anahtar kart erişimine sahip. Çalışma saatlerinin dışında müzede kaldığına dair güvenlik kayıtlarında bazı belirsizlikler var."));
 
 		_context.AddNewPeople(new People("Leyla Demir",
-			"25 yaşında, kıvırcık kızıl saçları olan bir kadın", 
+			"25 yaşında, kızıl saçları olan bir uzun boylu kadın", 
 			"Müze kafesinde barista. Sanattan anlamadığı için hiçbir zaman sanat galerilerine girmediğini. İşlerini bitirdikten sonra fitness'a gittiğini iddia ediyor.",
 			"Müzenin güvenlik şifresini biliyor çünkü geç saatlerde bazen müze içinde kalmak zorunda kalıyor. Eski sevgilisi müze güvenliğinden sorumlu teknik ekipteydi."));
 
@@ -72,15 +72,15 @@ public sealed class Game
 		_context.AddNewPeople(new People("Seda Çınar",
 			"27 yaşında, düz siyah saçlı bir kadın",
             "Serbest zamanlı sanatçı ve sık sık müzede çalışıyor. " +
-            "Tur olmamasına rağmen Barış müzede olduğunu, aralarındaki bir sorundan dolayı Barış ile tartıştıktan sonra müzeden geç olmadan çıktığını ifade ediyor.",
+            "O gün Barış ile tartıştıktan sonra müzeden geç olmadan çıktığını ifade ediyor.",
 			"Müzede sergilenen eserler hakkında derin bilgilere sahip ve bu eserlerin değerlerini iyi biliyor. Depolarda saklanan eski sanat eserlerine kimseye söylemeden eriştiğine dair dedikodular var."));
 
 
 		_context.AddNewQuestion(new Question("Eseri baskalari da varken calmak cok riskli, herkes ciktiktan sonra calinmis olmali. Olayın gerçekleştiği gün galeriden çıkan son kişi kim olabilir?",
 			"Leyla Demir"));
 
-        _context.AddNewQuestion(new Question("Eseri calan kisi, degerini cok iyi biliyor olmali, bu eserin degerini en iyi kim bilebilir?",
-			"Nur Toprak"));
+        _context.AddNewQuestion(new Question("Birileri müzede olup olmadığı ile ilgili yalan konuşuyor. Bu kim olabilir?",
+			"Barış Kaya"));
 
         _context.AddNewQuestion(new Question("Eser kilitli bir bolgede tutuldugu halde hirsiz bir sekilde eseri calmayi basarmis, bunu kim yapabilir?",
 			"Ahmet Yıldız"));
@@ -88,7 +88,7 @@ public sealed class Game
         _context.AddNewQuestion(new Question("Müzede sergilenen eserler hakkında derin bilgilere sahip olan bir kişinin, değerli bir tablonun kaybolmasında bir çıkarı olabilir. Bu profili hangi şüpheli karşılar?", 
 			"Seda Çınar"));
 
-		_context.LastQuestion = new Question("Who is the culprit?", "Leyla Demir");
+		_context.LastQuestion = new Question("Suçlu kim?", "Leyla Demir");
 
         Help();
 
@@ -506,7 +506,7 @@ public sealed class Game
 
             string hint = _context.GetHintFromSuspect(name);
 
-            _addHint(hint);
+            _addHint(name + hint);
             Console.WriteLine(hint);            
 		}
     }

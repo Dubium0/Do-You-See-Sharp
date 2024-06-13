@@ -6,8 +6,9 @@ public sealed class Context
 	private List<Question> _questions;
 	private int _currentQuestionIndex;
 	private List<People> _people;
+    private List<CameraRecord> _cameraRecords;
 
-	private Question _lastQuestion = new Question("",""); //dumb obj. at the beginning to avoid null ref.
+    private Question _lastQuestion = new Question("",""); //dumb obj. at the beginning to avoid null ref.
 
 	public Question LastQuestion
 	{
@@ -22,6 +23,10 @@ public sealed class Context
     {
         get { return _people; }
     }
+    public IReadOnlyList<CameraRecord> CameraRecords
+    {
+        get { return _cameraRecords; }
+    }
 
     public string StoryText
 	{
@@ -34,7 +39,10 @@ public sealed class Context
 		_storyText = storyText;
 		_questions = new List<Question>();
 		_people = new List<People>();
-		_currentQuestionIndex = 0;
+        _cameraRecords = new List<CameraRecord>();
+
+
+        _currentQuestionIndex = 0;
 
     }
 
