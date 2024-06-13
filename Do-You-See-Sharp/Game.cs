@@ -505,6 +505,10 @@ public sealed class Game
             Console.WriteLine("Oyun bitti. Çıkmak için Quit fonskiyonunu kullan.");
             return;
         }
+        var result = _context.GetHintFromSuspect(name);
+        if (result == null) { 
+            return;
+        }
 
         if (!_payIfPossible(20))
 		{
@@ -517,7 +521,7 @@ public sealed class Game
 			Console.WriteLine(name + " hakkında ipucu " + ":");
 			Console.ResetColor();
 
-            string hint = _context.GetHintFromSuspect(name);
+            string hint = result;
 
             _addHint(name + hint);
             Console.WriteLine(hint);            
