@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Xml.Linq;
 
-public class Game
+public sealed class Game
 {
 
 	private static readonly Game _instance = new Game();
@@ -253,7 +253,7 @@ public class Game
     /// <summary>
     /// This function prints the main story of the context.
     /// </summary>
-    public void DisplayStory()
+    public void ShowStory()
     {
         Console.Write(" ");
 
@@ -310,7 +310,7 @@ public class Game
 	/// <summary>
 	/// This function displays current point of the player.
 	/// </summary>
-	public void DisplayPoint()
+	public void ShowPoint()
 	{
 		if (_gameState == GameState.FINISH) {
             System.Console.WriteLine("Oyun bitti.");
@@ -518,7 +518,7 @@ public class Game
     {
         Console.WriteLine("Do You See Sharp Oyununa Hosgeldin!");
         Console.WriteLine("Oyunun oynayışı hakkında bilgi almak için HowToPlay fonskiyonunu çağırın.");
-        Console.WriteLine("Oyunun hikayesini görmek için DisplayStory fonskiyonunu çağırın.");
+        Console.WriteLine("Oyunun hikayesini görmek için ShowStory fonskiyonunu çağırın.");
         Console.WriteLine("Oyundan çıkmak için Quit fonksiyonunu çağırın.");
         Console.WriteLine("Oyunu oynamak için gerekli tüm fonskiyonları görmek için 'GameObject.' kullanın.");
     }
