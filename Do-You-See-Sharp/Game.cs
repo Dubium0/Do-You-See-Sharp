@@ -616,7 +616,7 @@ public sealed class Game
         Console.WriteLine("Oyunun oynayışı hakkında bilgi almak için HowToPlay fonskiyonunu çağırın.");
         Console.WriteLine("Oyunun hikayesini görmek için ShowStory fonskiyonunu çağırın.");
         Console.WriteLine("Oyundan çıkmak için Quit fonksiyonunu çağırın.");
-        Console.WriteLine("Oyunu oynamak için gerekli tüm fonskiyonları görmek için 'GameObject.' kullanın.");
+        Console.WriteLine("Oyunu oynamak için gerekli tüm fonskiyonları görmek için 'Game.Instance' kullanın.");
     }
 
 
