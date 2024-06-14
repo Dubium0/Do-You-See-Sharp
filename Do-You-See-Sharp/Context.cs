@@ -3,10 +3,12 @@
 public sealed class Context
 {
 	private string _storyText;
+	private string _storyRules;
 	private List<Question> _questions;
 	private int _currentQuestionIndex;
 	private List<People> _people;
     private List<CameraRecord> _cameraRecords;
+
 
     private Question _lastQuestion = new Question("",""); //dumb obj. at the beginning to avoid null ref.
 
@@ -32,11 +34,16 @@ public sealed class Context
 	{
 		get { return _storyText; }
 	}
+	public string StoryRules
+	{
+		get { return _storyRules; }
+	}
 
 
-    public Context(string storyText)
+    public Context(string storyText, string storyRules)
 	{
 		_storyText = storyText;
+		_storyRules = storyRules;
 		_questions = new List<Question>();
 		_people = new List<People>();
         _cameraRecords = new List<CameraRecord>();

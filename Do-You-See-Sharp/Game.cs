@@ -39,7 +39,12 @@ public sealed class Game
             " Müzenin en değerli tablolarından biri gizemli bir şekilde yok olmuştur. " +
             "Güvenlik kameraları, olay günü altı farklı şüphelinin tablonun bulunduğu galeriden geçtiğini kaydetmiştir. " +
             "Müze kapalıyken gerçekleşen bu olay, galerinin içindeki güvenlik sisteminin de devre dışı bırakıldığı bir zaman diliminde olmuştur. " +
-            "Olayın ardından müze çalışanları birbirlerini suçlayarak ifadeler vermişlerdir ve bazı ifadelerde çelişkiler bulunmaktadır."); 
+            "Olayın ardından müze çalışanları birbirlerini suçlayarak ifadeler vermişlerdir ve bazı ifadelerde çelişkiler bulunmaktadır.",
+            "Muze Calisma Kurallari: "+
+            "Mesai saatleri siradan calisanlar icin 12.00 - 23.00\r\n" +
+            "Guvenlik gorevlileri icin bu 18.00 - 06.00 ve 06.00 - 18.00 olacak sekilde 12 saatlik vardiyalar olarak gerceklesir.\r\n"+
+            "Guvenlik ve temizlik gorevlileri haric kamera odasina giris yasaktir."
+            ); 
 
 		_context.AddNewPeople(new People("Emre Aslan",
 			"35 yaşında, kısa siyah saçlı bir adam",
@@ -96,8 +101,10 @@ public sealed class Game
         _context.AddNewCameraRecord(new CameraRecord("cam4", "Cafe Bölümü", 
             "19.30 Barış ile Seda tartışıyor. Leyla Barış’ın tarafında durup onu geri çekmeye çalışıyor. \r\n" +
             "20.10 Barış ile Leyla el ele tutuşurken görüntüleniyor.\r\n" +
-            "21.20 Barış ve Leyla Kafeden ayrılıyor.\r\n" +
-            "21.45 Leyla Demir’in mutfak bölümünde bardakları dizdiği görünüyor.\r\n"));
+            "21.20 Leyla Barisi kafeden cikariyor.\r\n" +
+            "21.40 Leyla Cafe den Eserin bulundugu koridora geciyor.\r\n" +
+            "22.00 Emre Aslan Cafe den cikisa dogru giden koridora dogru gidiyor\r\n" +
+            "22.15 Leyla Demir’in mutfak bölümünde bardakları dizdiği görünüyor.\r\n"));
 
 
 
@@ -609,7 +616,11 @@ public sealed class Game
         }
 
     }
+    public void ShowStoryRules()
+    {
+        Console.WriteLine(_context.StoryRules);
 
+    }
     /// <summary>
     /// This function prints the help options of the game.
     /// </summary>
