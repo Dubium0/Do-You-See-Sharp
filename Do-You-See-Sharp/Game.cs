@@ -49,7 +49,7 @@ public sealed class Game
 		_context.AddNewPeople(new People("Emre Aslan",
 			"35 yaşında, kısa siyah saçlı bir adam",
             "Müze temizlik personeli. Olay günü gece vardiyasındaydı. Eserin olduğu koridoru temizleyip çıktıktan sonra tekrar oraya girmediğini iddia ediyor.",
-			"Müze yönetimiyle iyi ilişkileri var ve anahtar kart erişimine sahip. Çalışma saatlerinin dışında müzede kaldığına dair güvenlik kayıtlarında bazı belirsizlikler var."));
+			"Çalışma saatlerinin dışında müzede kaldığına dair güvenlik kayıtlarında bazı belirsizlikler var."));
 
 		_context.AddNewPeople(new People("Leyla Demir",
 			"25 yaşında, kızıl saçları olan bir uzun boylu kadın", 
@@ -70,7 +70,7 @@ public sealed class Game
 		_context.AddNewPeople(new People("Barış Kaya", 
 			"29 yaşında, sarı saçlı ve atletik yapıda genç bir adam",
 			"Müze rehberi. Tur gruplarına liderlik ettiğini, ancak o gün hiç tur olmadığını belirtiyor.",
-            "Gizli kamera sistemlerinin yerlerini biliyor. Tur rehberliğinden önce uzun süre güvenlik teknolojileri üzerine çalışmış."));
+            "Nur Toprak çalışanlar arasında ilişki yaşanmasını istemediğinden, Barış müzede olup olmadığı hakkında yalan söyledi."));
 
 		_context.AddNewPeople(new People("Seda Çınar",
 			"27 yaşında, düz siyah saçlı bir kadın",
@@ -81,30 +81,30 @@ public sealed class Game
 
 
 
-        _context.AddNewCameraRecord(new CameraRecord("cam1", "Müze giriş çıkışları", "*no records! All off them are deleted"));
+        _context.AddNewCameraRecord(new CameraRecord("cam1", "Ana giriş çıkış kapısı", "*no records! All off them are deleted"));
 
         _context.AddNewCameraRecord(new CameraRecord("cam2", "Arka Bahçe",
             "19.30 Nur Toprak bahçede kahve içiyor.\r\n" +
-            "21.49 Ahmet Yıldız bahçede sigara İçiyor.\r\n" +
+            "21.38 Ahmet Yıldız ile Emre Aslan bahçede sigara ve kahve içiyor.\r\n" +
+            "21.45 Emre Aslan içeri geri giriyor.\r\n" +
             "22.15 Ahmet Yıldız binanın içine giriyor.\r\n"));
 
         _context.AddNewCameraRecord(new CameraRecord("cam3", "Eserin bulunduğu koridor", 
             "19.25 Nur Toprak çantasını alıp odasından çıkıyor.\r\n" +
-            "21.25 Barış ve Leyla hızlı şekilde koridordan yürüyüp geçiyor.\r\n" +
-            "21.30 Emre Aslan eserlerin tozunu alırken görüntüleniyor.\r\n" +
-            "21.35 Ahmet yıldız güvenlik odasından çıkıp Emre ile sohbet ediyor.\r\n" +
-            "*no records \r\n" +
-            "22.35 Eserin sergilendiği koridorda insan gölgesi görünüyor.\r\n" +
+            "21.27 Emre Aslan eserlerin tozunu alırken görüntüleniyor.\r\n" +
+            "21.35 Ahmet yıldız güvenlik odasından çıkıp arka bahçeye doğru gidiyor.\r\n" +
+            "21.40 Arka bahçeye çıkan kapının önünde Emre ile Ahmet sohbet ediyor. \r\n" +
             "*no records \r\n" +
             "23.20 Eserin yerinde olmadığı görünüyor.\r\n"));
 
         _context.AddNewCameraRecord(new CameraRecord("cam4", "Cafe Bölümü", 
-            "19.30 Barış ile Seda tartışıyor. Leyla Barış’ın tarafında durup onu geri çekmeye çalışıyor. \r\n" +
+            "19.30 Barış ile Seda tartışıyor. Leyla Barış’ın tarafında durup onu geri çekmeye çalışıyor.\r\n" +
             "20.10 Barış ile Leyla el ele tutuşurken görüntüleniyor.\r\n" +
             "21.20 Leyla Barisi kafeden cikariyor.\r\n" +
-            "21.40 Leyla Cafe den Eserin bulundugu koridora geciyor.\r\n" +
-            "22.00 Emre Aslan Cafe den cikisa dogru giden koridora dogru gidiyor\r\n" +
-            "22.15 Leyla Demir’in mutfak bölümünde bardakları dizdiği görünüyor.\r\n"));
+            "21.30 Leyla Demir’in mutfak bölümünde bardakları dizdiği görünüyor.\r\n" +
+            "*no records\r\n" + 
+            "22.00 Emre Aslan temizlik arabısını sürükleyerek Cafe den cikisa giden koridora dogru gidiyor\r\n"
+            ));
 
 
 
