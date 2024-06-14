@@ -8,6 +8,7 @@ public sealed class Context
 	private int _currentQuestionIndex;
 	private List<People> _people;
     private List<CameraRecord> _cameraRecords;
+	private bool _isLastQuestion;
 
 
     private Question _lastQuestion = new Question("",""); //dumb obj. at the beginning to avoid null ref.
@@ -48,6 +49,7 @@ public sealed class Context
 		_people = new List<People>();
         _cameraRecords = new List<CameraRecord>();
         _currentQuestionIndex = 0;
+		_isLastQuestion = false;
     }
 
 	public void AddNewQuestion(Question question)
@@ -85,14 +87,20 @@ public sealed class Context
 
 	public Question GetCurrentQuestion()
 	{
-		if (_questions.Count - 1 > _currentQuestionIndex)
+		if (_questions.Count > _currentQuestionIndex && !_isLastQuestion)
 		{
-			return _questions[_currentQuestionIndex];
+			Console.WriteLine("Get Q count:" + _questions.Count);
+            Console.WriteLine("Get curr count:" + _currentQuestionIndex);
+            Console.WriteLine("context: " + _questions[_currentQuestionIndex].QuestionText);
+			Question question = _questions[_currentQuestionIndex];
 
+            return question;
 		}
 		else
 		{
-			return _lastQuestion;
+            Console.WriteLine("LAST Q count:" + _questions.Count);
+            Console.WriteLine("LAST curr count:" + _currentQuestionIndex);
+            return _lastQuestion;
 		}
 	}
 
@@ -104,13 +112,21 @@ public sealed class Context
 
     public bool MoveToNextQuestionIfAvailable()
 	{
-		
+
 		if (_questions.Count - 1 > _currentQuestionIndex)
 		{
 			_currentQuestionIndex++;
+			Console.WriteLine("Move Q count:" + _questions.Count);
+			Console.WriteLine("Move curr count:" + _currentQuestionIndex);
+
 			return true;
 
 		}
-		return false;
+		else
+		{
+            _isLastQuestion = true;
+            return false;
+        }
+		
 	}
 }

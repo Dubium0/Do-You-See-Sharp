@@ -403,7 +403,6 @@ public sealed class Game
                 break;
 			case GameState.FINAL_STATE:
 
-				
                 var result = _context.LastQuestion.QuestionAnswer.ToLower() == name.ToLower();
 
 				if (result)
@@ -424,8 +423,6 @@ public sealed class Game
                     {
                         System.Console.WriteLine("Seviye : İşin meraklisi");
                     }
-
-
 
 					_gameState = GameState.FINISH;
                     Console.WriteLine("Oyun bitti. Çıkmak için Quit fonskiyonunu kullan.");
